@@ -17,7 +17,7 @@ public class Bishop extends Piece {
         boolean SE = false;
         boolean SW = false;
         for (int i = 1; i < 8; i++) {
-            if (x+1 < 10 && y+1 < 10 && !NE) {
+            if (x+i < 10 && y+i < 10 && !NE) {
                 if (pChessBoard[x+i][y+i].getPiece() == null) {
                     legalMoves[x+i][y+i] = true;
                 } else {
@@ -27,7 +27,7 @@ public class Bishop extends Piece {
                     NE = true;
                 }
             }
-            if (x-1 > 1 && y+1 < 10 && !NW) {
+            if (x-i > 1 && y+i < 10 && !NW) {
                 if (pChessBoard[x-i][y+i].getPiece() == null) {
                     legalMoves[x-i][y+i] = true;
                 } else {
@@ -37,7 +37,7 @@ public class Bishop extends Piece {
                     NW = true;
                 }
             }
-            if (x+1 < 10 && y-1 > 1 && !SE) {
+            if (x+i < 10 && y-i > 1 && !SE) {
                 if (pChessBoard[x+i][y-i].getPiece() == null) {
                     legalMoves[x+i][y-i] = true;
                 } else {
@@ -47,7 +47,7 @@ public class Bishop extends Piece {
                     SE = true;
                 }
             }
-            if (x-1 > 1 && y-1 > 1 && !SW) {
+            if (x-i > 1 && y-i > 1 && !SW) {
                 if (pChessBoard[x-i][y-i].getPiece() == null) {
                     legalMoves[x-i][y-i] = true;
                 } else {
