@@ -25,11 +25,10 @@ public abstract class Piece {
     public abstract void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile);
 
     public boolean[][] getLegalMoves() {
-        removeOutOfBounds();
         return legalMoves;
     }
 
-    private static void removeOutOfBounds() {
+    protected static void removeOutOfBounds() {
         for (int i = 0; i < 12; i++) {
             legalMoves[i][0] = false;
             legalMoves[i][1] = false;
