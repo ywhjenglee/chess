@@ -21,5 +21,6 @@ public class Knight extends Piece {
         legalMoves[x+2][y-1] = true;
         legalMoves[x-2][y-1] = true;
         removeOutOfBounds();
+        removeAllyOccupied(pChessBoard);
     }
 }

@@ -21,5 +21,6 @@ public class King extends Piece {
         legalMoves[x+1][y-1] = true;
         legalMoves[x-1][y-1] = true;
         removeOutOfBounds();
+        removeAllyOccupied(pChessBoard);
     }
 }

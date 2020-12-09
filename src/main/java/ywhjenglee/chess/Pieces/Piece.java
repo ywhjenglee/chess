@@ -28,12 +28,24 @@ public abstract class Piece {
         return legalMoves;
     }
 
-    protected static void removeOutOfBounds() {
+    protected void removeOutOfBounds() {
         for (int i = 0; i < 12; i++) {
             legalMoves[i][0] = false;
             legalMoves[i][1] = false;
             legalMoves[i][10] = false;
             legalMoves[i][11] = false;
+        }
+    }
+
+    protected void removeAllyOccupied(Tile[][] pChessBoard) {
+        for (int j = 0; j < 12; j++) {
+            for (int i = 0; i < 12; i++) {
+                if (pChessBoard[i][j].getPiece() != null) {
+                    if (pChessBoard[i][j].getPiece().getColor() == aColor) {
+                        legalMoves[i][j] = false;
+                    }
+                }
+            }
         }
     }
 }
