@@ -5,7 +5,7 @@ import ywhjenglee.chess.Tile;
 public abstract class Piece {
 
     private final String aName;
-    private final boolean aColor;
+    protected final boolean aColor;
     protected static boolean[][] legalMoves;
 
     protected Piece(String pName, boolean pColor) {
