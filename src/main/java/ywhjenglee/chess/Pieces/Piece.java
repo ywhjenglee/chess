@@ -1,15 +1,32 @@
 package ywhjenglee.chess.Pieces;
 
+import ywhjenglee.chess.Tile;
+
 public abstract class Piece {
 
     private final String aName;
     private final boolean aColor;
-    private static boolean[][] legalMoves;
+    protected static boolean[][] legalMoves;
 
     protected Piece(String pName, boolean pColor) {
         aName = pName;
         aColor = pColor;
         legalMoves = new boolean[12][12];
+    }
+
+    public String getName() {
+        return aName;
+    }
+
+    public boolean getColor() {
+        return aColor;
+    }
+
+    public abstract void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile);
+
+    public boolean[][] getLegalMoves() {
+        removeOutOfBounds();
+        return legalMoves;
     }
 
     private static void removeOutOfBounds() {
