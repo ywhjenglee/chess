@@ -6,11 +6,13 @@ public abstract class Piece {
 
     private final String aName;
     protected final boolean aColor;
+    protected boolean hasMoved;
     protected static boolean[][] legalMoves;
 
     protected Piece(String pName, boolean pColor) {
         aName = pName;
         aColor = pColor;
+        hasMoved = false;
         legalMoves = new boolean[12][12];
     }
 
@@ -20,6 +22,10 @@ public abstract class Piece {
 
     public boolean getColor() {
         return aColor;
+    }
+
+    public void setHasMoved() {
+        hasMoved = true;
     }
 
     public abstract void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile);
