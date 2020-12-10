@@ -4,13 +4,11 @@ import ywhjenglee.chess.Tile;
 
 public class Rook extends Piece {
     
-    public Rook(boolean pColor) {
-        super("Rook", pColor);
+    public Rook(boolean pColor, int pX, int pY) {
+        super("Rook", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile){
-        int x = pTile.getTileX();
-        int y = pTile.getTileX();
+    public void generatePossibleMoves(Tile[][] pChessBoard) {
         legalMoves[x][y] = true;
         boolean E = false;
         boolean W = false;

@@ -37,26 +37,26 @@ public class ChessGame {
 
     private static void setPieces() {
         for (int i = 2; i < 10; i++) {
-            chessBoard[i][3].setPiece(new Pawn(WHITE));
-            chessBoard[i][8].setPiece(new Pawn(BLACK));
+            chessBoard[i][3].setPiece(new Pawn(WHITE, i, 3));
+            chessBoard[i][8].setPiece(new Pawn(BLACK, i, 8));
         }
-        chessBoard[2][2].setPiece(new Rook(WHITE));
-        chessBoard[3][2].setPiece(new Knight(WHITE));
-        chessBoard[4][2].setPiece(new Bishop(WHITE));
-        chessBoard[5][2].setPiece(new Queen(WHITE));
-        chessBoard[6][2].setPiece(new King(WHITE));
-        chessBoard[7][2].setPiece(new Bishop(WHITE));
-        chessBoard[8][2].setPiece(new Knight(WHITE));
-        chessBoard[9][2].setPiece(new Rook(WHITE));
+        chessBoard[2][2].setPiece(new Rook(WHITE, 2, 2));
+        chessBoard[3][2].setPiece(new Knight(WHITE, 3, 2));
+        chessBoard[4][2].setPiece(new Bishop(WHITE, 4, 2));
+        chessBoard[5][2].setPiece(new Queen(WHITE, 5, 2));
+        chessBoard[6][2].setPiece(new King(WHITE, 6, 2));
+        chessBoard[7][2].setPiece(new Bishop(WHITE, 7, 2));
+        chessBoard[8][2].setPiece(new Knight(WHITE, 8, 2));
+        chessBoard[9][2].setPiece(new Rook(WHITE, 9, 2));
 
-        chessBoard[2][9].setPiece(new Rook(BLACK));
-        chessBoard[3][9].setPiece(new Knight(BLACK));
-        chessBoard[4][9].setPiece(new Bishop(BLACK));
-        chessBoard[5][9].setPiece(new Queen(BLACK));
-        chessBoard[6][9].setPiece(new King(BLACK));
-        chessBoard[7][9].setPiece(new Bishop(BLACK));
-        chessBoard[8][9].setPiece(new Knight(BLACK));
-        chessBoard[9][9].setPiece(new Rook(BLACK));
+        chessBoard[2][9].setPiece(new Rook(BLACK, 2, 9));
+        chessBoard[3][9].setPiece(new Knight(BLACK, 3, 9));
+        chessBoard[4][9].setPiece(new Bishop(BLACK, 4, 9));
+        chessBoard[5][9].setPiece(new Queen(BLACK, 5, 9));
+        chessBoard[6][9].setPiece(new King(BLACK, 6, 9));
+        chessBoard[7][9].setPiece(new Bishop(BLACK, 7, 9));
+        chessBoard[8][9].setPiece(new Knight(BLACK, 8, 9));
+        chessBoard[9][9].setPiece(new Rook(BLACK, 9, 9));
     }
 
     public void selectPiece(int x, int y) {
@@ -64,7 +64,7 @@ public class ChessGame {
         if (tempPiece != null && tempPiece.getColor() == whiteTurn) {
             selectedPiece = chessBoard[x][y].getPiece();
             selectedTile = chessBoard[x][y];
-            selectedPiece.generatePossibleMoves(chessBoard, selectedTile);
+            selectedPiece.generatePossibleMoves(chessBoard);
         }
     }
 
@@ -77,11 +77,23 @@ public class ChessGame {
                         Piece capturedPiece = chessBoard[x][y].getPiece();
                     }
                     chessBoard[x][y].setPiece(selectedPiece);
+                    selectedPiece.setPosition(x, y);
+                    selectedPiece.setHasMoved();
                     selectedTile.removePiece();
                     whiteTurn = !whiteTurn;
                     turnCount++;
                 }
                 selectedPiece = null;
+            }
+        }
+    }
+
+    public void scanCheck() {
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
+                if (chessBoard[i][j].getPiece() != null && chessBoard[i][j].getPiece().getClass() == King.class) {
+
+                }
             }
         }
     }

@@ -6,12 +6,16 @@ public abstract class Piece {
 
     private final String aName;
     protected final boolean aColor;
+    protected int x;
+    protected int y;
     protected boolean hasMoved;
     protected static boolean[][] legalMoves;
 
-    protected Piece(String pName, boolean pColor) {
+    protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;
         aColor = pColor;
+        x = pX;
+        y = pY;
         hasMoved = false;
         legalMoves = new boolean[12][12];
     }
@@ -28,7 +32,12 @@ public abstract class Piece {
         hasMoved = true;
     }
 
-    public abstract void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile);
+    public void setPosition(int pX, int pY) {
+        x = pX;
+        y = pY;
+    }
+
+    public abstract void generatePossibleMoves(Tile[][] pChessBoard);
 
     public boolean[][] getLegalMoves() {
         return legalMoves;

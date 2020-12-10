@@ -4,13 +4,11 @@ import ywhjenglee.chess.Tile;
 
 public class King extends Piece {
     
-    public King(boolean pColor) {
-        super("King", pColor);
+    public King(boolean pColor, int pX, int pY) {
+        super("King", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile){
-        int x = pTile.getTileX();
-        int y = pTile.getTileY();
+    public void generatePossibleMoves(Tile[][] pChessBoard) {
         legalMoves[x][y] = true;
         legalMoves[x+1][y] = true;
         legalMoves[x-1][y] = true;

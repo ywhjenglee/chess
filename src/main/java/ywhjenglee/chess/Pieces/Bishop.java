@@ -4,13 +4,11 @@ import ywhjenglee.chess.Tile;
 
 public class Bishop extends Piece {
 
-    public Bishop(boolean pColor) {
-        super("Bishop", pColor);
+    public Bishop(boolean pColor, int pX, int pY) {
+        super("Bishop", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile){
-        int x = pTile.getTileX();
-        int y = pTile.getTileY();
+    public void generatePossibleMoves(Tile[][] pChessBoard) {
         legalMoves[x][y] = true;
         boolean NE = false;
         boolean NW = false;

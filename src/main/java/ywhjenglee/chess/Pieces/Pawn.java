@@ -4,13 +4,11 @@ import ywhjenglee.chess.Tile;
 
 public class Pawn extends Piece {
     
-    public Pawn(boolean pColor) {
-        super("Pawn", pColor);
+    public Pawn(boolean pColor, int pX, int pY) {
+        super("Pawn", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard, Tile pTile){
-        int x = pTile.getTileX();
-        int y = pTile.getTileY();
+    public void generatePossibleMoves(Tile[][] pChessBoard) {
         legalMoves[x][y] = true;
         if (aColor) {
             if (pChessBoard[x][y+1].getPiece() == null) {

@@ -7,9 +7,9 @@ public class Tile {
     private final int x, y;
     private Piece aPiece;
 
-    public Tile(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Tile(int pX, int pY) {
+        x = pX;
+        y = pY;
     }
 
     public void setPiece(Piece pPiece) {
