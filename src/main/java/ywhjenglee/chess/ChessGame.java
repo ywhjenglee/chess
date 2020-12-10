@@ -8,6 +8,10 @@ import ywhjenglee.chess.Pieces.Rook;
 import ywhjenglee.chess.Pieces.Queen;
 import ywhjenglee.chess.Pieces.King;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class ChessGame {
     
     private static final boolean WHITE = true;
@@ -17,12 +21,16 @@ public class ChessGame {
     private static Tile selectedTile;
     private static int turnCount;
     private static boolean whiteTurn;
+    private static List<Piece> whitesCaptures;
+    private static List<Piece> blacksCaptures;
 
     public ChessGame() {
         chessBoard = new Tile[12][12];
         selectedPiece = null;
         turnCount = 0;
         whiteTurn = true;
+        whitesCaptures = new ArrayList<>();
+        blacksCaptures = new ArrayList<>();
         createTiles();
         setPieces();
     }
@@ -59,25 +67,29 @@ public class ChessGame {
         chessBoard[9][9].setPiece(new Rook(BLACK, 9, 9));
     }
 
-    public void selectPiece(int x, int y) {
-        Piece tempPiece = chessBoard[x][y].getPiece();
+    public void selectPiece(int pX, int pY) {
+        Piece tempPiece = chessBoard[pX][pY].getPiece();
         if (tempPiece != null && tempPiece.getColor() == whiteTurn) {
-            selectedPiece = chessBoard[x][y].getPiece();
-            selectedTile = chessBoard[x][y];
+            selectedPiece = chessBoard[pX][pY].getPiece();
+            selectedTile = chessBoard[pX][pY];
             selectedPiece.generatePossibleMoves(chessBoard);
         }
     }
 
-    public void movePiece(int x, int y) {
+    public void movePiece(int pX, int pY) {
         if (selectedPiece != null) {
             boolean[][] legalMoves = selectedPiece.getLegalMoves();
-            if (legalMoves[x][y]) {
-                if (selectedTile.getTileX() != x && selectedTile.getTileY() != y) {
-                    if (chessBoard[x][y].getPiece() != null) {
-                        Piece capturedPiece = chessBoard[x][y].getPiece();
+            if (legalMoves[pX][pY]) {
+                if (selectedTile.getTileX() != pX && selectedTile.getTileY() != pY) {
+                    if (chessBoard[pX][pY].getPiece() != null) {
+                        if (whiteTurn) {
+                            whitesCaptures.add(chessBoard[pX][pY].getPiece());
+                        } else {
+                            blacksCaptures.add(chessBoard[pX][pY].getPiece());
+                        }
                     }
-                    chessBoard[x][y].setPiece(selectedPiece);
-                    selectedPiece.setPosition(x, y);
+                    chessBoard[pX][pY].setPiece(selectedPiece);
+                    selectedPiece.setPosition(pX, pY);
                     selectedPiece.setHasMoved();
                     selectedTile.removePiece();
                     whiteTurn = !whiteTurn;
@@ -88,17 +100,15 @@ public class ChessGame {
         }
     }
 
-    public void scanCheck() {
-        for (int j = 2; j < 10; j++) {
-            for (int i = 2; i < 10; i++) {
-                if (chessBoard[i][j].getPiece() != null && chessBoard[i][j].getPiece().getClass() == King.class) {
-
-                }
-            }
-        }
-    }
-
     public int getTurnCount() {
         return turnCount;
+    }
+
+    public List<Piece> getWhitesCaptures() {
+        return Collections.unmodifiableList(whitesCaptures);
+    }
+
+    public List<Piece> getBlacksCaptures() {
+        return Collections.unmodifiableList(blacksCaptures);
     }
 }

@@ -9,7 +9,6 @@ public class Bishop extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
-        legalMoves[x][y] = true;
         boolean NE = false;
         boolean NW = false;
         boolean SE = false;
@@ -56,5 +55,7 @@ public class Bishop extends Piece {
                 }
             }
         }
+        removeKingWillBeInCheck(pChessBoard);
+        legalMoves[x][y] = true;
     }
 }

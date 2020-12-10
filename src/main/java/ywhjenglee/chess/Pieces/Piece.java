@@ -53,10 +53,36 @@ public abstract class Piece {
     }
 
     protected void removeAllyOccupied(Tile[][] pChessBoard) {
-        for (int j = 0; j < 12; j++) {
-            for (int i = 0; i < 12; i++) {
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
                 if (pChessBoard[i][j].getPiece() != null) {
                     if (pChessBoard[i][j].getPiece().getColor() == aColor) {
+                        legalMoves[i][j] = false;
+                    }
+                }
+            }
+        }
+    }
+
+    protected void removeKingWillBeInCheck(Tile[][] pChessBoard) {
+        King kingPiece = new King(true, 0, 0);
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
+                if (pChessBoard[i][j].getPiece() != null && pChessBoard[i][j].getPiece().getClass() == King.class) {
+                    if (pChessBoard[i][j].getPiece().getColor() == aColor) {
+                        kingPiece = (King) pChessBoard[i][j].getPiece();
+                        break;
+                    }
+                }
+            }
+        }
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
+                if (legalMoves[i][j]) {
+                    Tile[][] tempBoard = pChessBoard;
+                    tempBoard[i][j].setPiece(this);
+                    tempBoard[x][y].removePiece();
+                    if (kingPiece.isInCheck(tempBoard, kingPiece.x, kingPiece.y)) {
                         legalMoves[i][j] = false;
                     }
                 }
