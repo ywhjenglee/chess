@@ -37,6 +37,14 @@ public abstract class Piece {
         y = pY;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public abstract void generatePossibleMoves(Tile[][] pChessBoard);
 
     public boolean[][] getLegalMoves() {
