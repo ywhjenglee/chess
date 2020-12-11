@@ -9,6 +9,7 @@ public class King extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
+        super.generatePossibleMoves(pChessBoard);
         legalMoves = new boolean[12][12];
         legalMoves[x+1][y] = true;
         legalMoves[x-1][y] = true;
@@ -34,7 +35,7 @@ public class King extends Piece {
         }
     }
 
-    public boolean isInCheck(Tile[][] pChessBoard, int pX, int pY) {
+    public boolean isInCheck(Tile[][] pChessBoard) {
         // Check Pawn and King
         if (pChessBoard[pX+1][pY+1].getPiece() != null && pChessBoard[pX+1][pY+1].getPiece().getColor() != aColor) {
             if (pChessBoard[pX+1][pY+1].getPiece().getClass() == King.class ||

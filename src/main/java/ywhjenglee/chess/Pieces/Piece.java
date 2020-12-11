@@ -10,6 +10,7 @@ public abstract class Piece {
     protected int y;
     protected boolean hasMoved;
     protected boolean[][] legalMoves;
+    protected Tile[][] paddedChessBoard;
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;
@@ -17,7 +18,6 @@ public abstract class Piece {
         x = pX;
         y = pY;
         hasMoved = false;
-        legalMoves = new boolean[12][12];
     }
 
     public String getName() {
@@ -45,19 +45,18 @@ public abstract class Piece {
         return y;
     }
 
-    public abstract void generatePossibleMoves(Tile[][] pChessBoard);
+    public void generatePossibleMoves(Tile[][] pChessBoard) {
+        legalMoves = new boolean[8][8];
+        paddedChessBoard = new Tile[12][12];
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 8; i++) {
+                paddedChessBoard[i+2][j+2] = pChessBoard[i][j];
+            }
+        }
+    }
 
     public boolean[][] getLegalMoves() {
         return legalMoves;
-    }
-
-    protected void removeOutOfBounds() {
-        for (int i = 0; i < 12; i++) {
-            legalMoves[i][0] = false;
-            legalMoves[i][1] = false;
-            legalMoves[i][10] = false;
-            legalMoves[i][11] = false;
-        }
     }
 
     protected void removeAllyOccupied(Tile[][] pChessBoard) {
