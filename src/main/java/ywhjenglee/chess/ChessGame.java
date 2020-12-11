@@ -25,7 +25,6 @@ public class ChessGame {
     private static King bKing;
     private static List<Piece> whitesPieces;
     private static List<Piece> blacksPieces;
-    private static List<Piece> allPieces;
     private static List<Piece> whitesCaptures;
     private static List<Piece> blacksCaptures;
     private static boolean wCheck = false;
@@ -38,7 +37,6 @@ public class ChessGame {
         whiteTurn = true;
         whitesPieces = new ArrayList<>();
         blacksPieces = new ArrayList<>();
-        allPieces = new ArrayList<>();
         whitesCaptures = new ArrayList<>();
         blacksCaptures = new ArrayList<>();
         createTiles();
@@ -111,19 +109,16 @@ public class ChessGame {
         blacksPieces.add(bBishop2);
         blacksPieces.add(bKnight2);
         blacksPieces.add(bRook2);
-
-        allPieces.addAll(whitesPieces);
-        allPieces.addAll(blacksPieces);
     }
 
-    public static void selectPiece(Piece pPiece) {
+    public void selectPiece(Piece pPiece) {
         if (pPiece.getColor() == whiteTurn) {
             selectedPiece = pPiece;
             selectedTile = chessBoard[pPiece.getX()][pPiece.getY()];
         }
     }
 
-    public static boolean[][] getSelectedLegalMoves() {
+    public boolean[][] getSelectedLegalMoves() {
         if (selectedPiece != null) {
             selectedPiece.generatePossibleMoves(chessBoard);
             return selectedPiece.getLegalMoves();
@@ -135,7 +130,7 @@ public class ChessGame {
         if (selectedPiece != null) {
             boolean[][] legalMoves = selectedPiece.getLegalMoves();
             if (legalMoves[pX][pY]) {
-                if (selectedTile.getTileX() != pX && selectedTile.getTileY() != pY) {
+                if (selectedTile.getTileX() != pX || selectedTile.getTileY() != pY) {
                     if (chessBoard[pX][pY].getPiece() != null) {
                         if (whiteTurn) {
                             whitesCaptures.add(chessBoard[pX][pY].getPiece());
@@ -220,11 +215,11 @@ public class ChessGame {
         return turnCount;
     }
 
-    public static Tile getTile(int pX, int pY) {
-        return chessBoard[pX][pY];
+    public Tile getTile(int pX, int pY) {
+        return chessBoard[pX+2][pY+2];
     }
 
-    public static Piece getSelectedPiece() {
+    public Piece getSelectedPiece() {
         return selectedPiece;
     }
 
@@ -237,6 +232,9 @@ public class ChessGame {
     }
 
     public List<Piece> getAllPieces() {
+        List<Piece> allPieces = new ArrayList<>();
+        allPieces.addAll(whitesPieces);
+        allPieces.addAll(blacksPieces);
         return Collections.unmodifiableList(allPieces);
     }
 

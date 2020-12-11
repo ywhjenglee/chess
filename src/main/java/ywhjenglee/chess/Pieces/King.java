@@ -9,6 +9,7 @@ public class King extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
+        legalMoves = new boolean[12][12];
         legalMoves[x+1][y] = true;
         legalMoves[x-1][y] = true;
         legalMoves[x][y+1] = true;

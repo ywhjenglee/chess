@@ -9,6 +9,7 @@ public class Knight extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
+        legalMoves = new boolean[12][12];
         legalMoves[x+1][y+2] = true;
         legalMoves[x-1][y+2] = true;
         legalMoves[x+1][y-2] = true;
@@ -19,7 +20,6 @@ public class Knight extends Piece {
         legalMoves[x-2][y-1] = true;
         removeOutOfBounds();
         removeAllyOccupied(pChessBoard);
-        removeKingWillBeInCheck(pChessBoard);
         legalMoves[x][y] = true;
     }
 }

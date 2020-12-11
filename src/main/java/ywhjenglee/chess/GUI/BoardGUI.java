@@ -3,7 +3,6 @@ package ywhjenglee.chess.GUI;
 import ywhjenglee.chess.ChessGame;
 import ywhjenglee.chess.Pieces.Piece;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javafx.beans.binding.Bindings;
@@ -17,16 +16,18 @@ import javafx.scene.layout.RowConstraints;
 
 public class BoardGUI {
 
-    private StackPane aChessBoard;
-    private GridPane aTilesPane;
-    private GridPane aPiecesPane;
+    private static StackPane aChessBoard;
+    private static GridPane aTilesPane;
+    private static GridPane aPiecesPane;
     private static GridPane aMovesPane;
-    private List<Piece> allPieces;
     private ColumnConstraints aColumnConstraints;
     private RowConstraints aRowConstraints;
+    private ChessGame aChessGame;
+    private List<Piece> allPieces;
     
     public BoardGUI(ChessGame pChessGame) {
         // Initialize layout
+        aChessGame = pChessGame;
         aChessBoard = new StackPane();
         aChessBoard.setPadding(new Insets(25));
         aChessBoard.setAlignment(Pos.CENTER);
@@ -34,7 +35,7 @@ public class BoardGUI {
         aChessBoard.setPrefWidth(600);
 
         // Get pieces
-        allPieces = pChessGame.getAllPieces();
+        allPieces = aChessGame.getAllPieces();
 
         // Set column and row constraints for BoardGUI
         aColumnConstraints = new ColumnConstraints();
@@ -58,7 +59,7 @@ public class BoardGUI {
         NumberBinding aTileBinding = Bindings.min(aTilesPane.heightProperty(), aTilesPane.widthProperty());
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                aTilesPane.add(new TileGUI(ChessGame.getTile(i+2, j+2), aTileBinding), i, 7-j);
+                aTilesPane.add(new TileGUI(this, i, j, aTileBinding), i, 7-j);
             }
         }
     }
@@ -86,8 +87,8 @@ public class BoardGUI {
         }
     }
 
-    public static void displayLegalMoves() {
-        boolean[][] legalMoves = ChessGame.getSelectedLegalMoves();
+    public void displayLegalMoves() {
+        boolean[][] legalMoves = aChessGame.getSelectedLegalMoves();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
                 if(legalMoves[i+2][j+2]) {
@@ -97,8 +98,19 @@ public class BoardGUI {
         }
     }
 
-    public static void clearLegalMoves() {
+    public void refreshView() {
         aMovesPane.getChildren().clear();
+        aPiecesPane.getChildren().clear();
+        allPieces = aChessGame.getAllPieces();
+        for (Piece piece : allPieces) {
+            int i = piece.getX() - 2;
+            int j = piece.getY() - 2;
+            aPiecesPane.add(new PieceGUI(piece, i, j), i, 7-j);
+        }
+    }
+
+    public ChessGame getChessGame() {
+        return aChessGame;
     }
 
     public StackPane getView() {

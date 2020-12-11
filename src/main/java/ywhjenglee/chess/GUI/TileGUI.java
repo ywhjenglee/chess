@@ -1,9 +1,5 @@
 package ywhjenglee.chess.GUI;
 
-import ywhjenglee.chess.ChessGame;
-import ywhjenglee.chess.Pieces.Piece;
-import ywhjenglee.chess.Tile;
-
 import javafx.scene.shape.Rectangle;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Pos;
@@ -15,57 +11,59 @@ import javafx.event.EventHandler;
 public class TileGUI extends GridPane {
 
     private final int x, y;
-    private Rectangle bTile;
-    private Tile aTile;
+    private static Rectangle aRectangle;
+    private BoardGUI aBoardGUI;
 
-    public TileGUI(Tile pTile, NumberBinding pTileBinding) {
-        aTile = pTile;
-        x = pTile.getTileX() - 2;
-        y = pTile.getTileY() - 2;
-        bTile = new Rectangle(50, 50);
+    public TileGUI(BoardGUI pBoardGUI, int pX, int pY, NumberBinding pTileBinding) {
+        x = pX;
+        y = pY;
+        aRectangle = new Rectangle(50, 50);
+        aBoardGUI = pBoardGUI;
         if ((x + y) % 2 == 0) {
-            bTile.setFill(Color.BLUEVIOLET);
+            aRectangle.setFill(Color.BLUEVIOLET);
         } else {
-            bTile.setFill(Color.LIGHTGRAY);
+            aRectangle.setFill(Color.LIGHTGRAY);
         }
         createHandle();
-        bTile.widthProperty().bind(pTileBinding.divide(8));
-        bTile.heightProperty().bind(pTileBinding.divide(8));
+        aRectangle.widthProperty().bind(pTileBinding.divide(8));
+        aRectangle.heightProperty().bind(pTileBinding.divide(8));
         setAlignment(Pos.CENTER);
-        getChildren().add(bTile);
+        getChildren().add(aRectangle);
     }
 
     private void createHandle() {
-        bTile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        aRectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
-                if (ChessGame.getSelectedPiece() == null) {
-                    if (aTile.getPiece() != null) {
-                        ChessGame.selectPiece(aTile.getPiece());
-                        ChessGame.getSelectedLegalMoves();
-                        BoardGUI.displayLegalMoves();
+                if (aBoardGUI.getChessGame().getSelectedPiece() == null) {
+                    if (aBoardGUI.getChessGame().getTile(x, y).getPiece() != null) {
+                        aBoardGUI.getChessGame().selectPiece(aBoardGUI.getChessGame().getTile(x, y).getPiece());
+                        aBoardGUI.displayLegalMoves();
                     }
                 } else {
-
+                    if (aBoardGUI.getChessGame().getSelectedLegalMoves()[x+2][y+2]) {
+                        aBoardGUI.getChessGame().movePiece(x+2, y+2);
+                        aBoardGUI.refreshView();
+                    }
                 }
             }
         });
-        bTile.setOnMousePressed(new EventHandler<MouseEvent>() {
+        aRectangle.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
                 pEvent.setDragDetect(true);
             }
         });
-        bTile.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        aRectangle.setOnMouseReleased(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
             }
         });
-        bTile.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        aRectangle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
                 pEvent.setDragDetect(false);
             }
         });
-        bTile.setOnDragDetected(new EventHandler<MouseEvent>() {
+        aRectangle.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
-                bTile.startFullDrag();
+                aRectangle.startFullDrag();
             }
         });
     }

@@ -9,6 +9,7 @@ public class Rook extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
+        legalMoves = new boolean[12][12];
         boolean E = false;
         boolean W = false;
         boolean N = false;
@@ -55,7 +56,6 @@ public class Rook extends Piece {
                 }
             }
         }
-        removeKingWillBeInCheck(pChessBoard);
         legalMoves[x][y] = true;
     }
 }

@@ -9,7 +9,7 @@ public abstract class Piece {
     protected int x;
     protected int y;
     protected boolean hasMoved;
-    protected static boolean[][] legalMoves;
+    protected boolean[][] legalMoves;
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;

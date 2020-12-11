@@ -9,6 +9,7 @@ public class Pawn extends Piece {
     }
 
     public void generatePossibleMoves(Tile[][] pChessBoard) {
+        legalMoves = new boolean[12][12];
         if (aColor) {
             if (pChessBoard[x][y+1].getPiece() == null) {
                 legalMoves[x][y+1] = true;
@@ -36,7 +37,6 @@ public class Pawn extends Piece {
                 legalMoves[x-1][y-1] = true;
             }
         }
-        removeKingWillBeInCheck(pChessBoard);
         legalMoves[x][y] = true;
     }
 }
