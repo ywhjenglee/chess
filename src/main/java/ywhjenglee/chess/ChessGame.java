@@ -116,13 +116,19 @@ public class ChessGame {
         allPieces.addAll(blacksPieces);
     }
 
-    public void selectPiece(int pX, int pY) {
-        Piece tempPiece = chessBoard[pX][pY].getPiece();
-        if (tempPiece != null && tempPiece.getColor() == whiteTurn) {
-            selectedPiece = chessBoard[pX][pY].getPiece();
-            selectedTile = chessBoard[pX][pY];
-            selectedPiece.generatePossibleMoves(chessBoard);
+    public static void selectPiece(Piece pPiece) {
+        if (pPiece.getColor() == whiteTurn) {
+            selectedPiece = pPiece;
+            selectedTile = chessBoard[pPiece.getX()][pPiece.getY()];
         }
+    }
+
+    public static boolean[][] getSelectedLegalMoves() {
+        if (selectedPiece != null) {
+            selectedPiece.generatePossibleMoves(chessBoard);
+            return selectedPiece.getLegalMoves();
+        }
+        return new boolean[12][12];
     }
 
     public void movePiece(int pX, int pY) {
@@ -212,6 +218,14 @@ public class ChessGame {
 
     public int getTurnCount() {
         return turnCount;
+    }
+
+    public static Tile getTile(int pX, int pY) {
+        return chessBoard[pX][pY];
+    }
+
+    public static Piece getSelectedPiece() {
+        return selectedPiece;
     }
 
     public List<Piece> getWhitesPieces() {

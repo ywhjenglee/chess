@@ -21,7 +21,7 @@ public abstract class Piece {
     }
 
     public String getName() {
-        return aName;
+        return String.valueOf(aColor) + aName;
     }
 
     public boolean getColor() {

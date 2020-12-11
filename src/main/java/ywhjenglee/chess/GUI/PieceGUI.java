@@ -1,7 +1,7 @@
 package ywhjenglee.chess.GUI;
 
 import javafx.scene.layout.GridPane;
-import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 
@@ -11,12 +11,16 @@ public class PieceGUI extends GridPane {
 
     private int x, y;
     private Piece aPiece;
+    private Image aPieceImage;
+    private Text aPieceText;
 
     public PieceGUI(Piece pPiece, int pX, int pY) {
         x = pX;
         y = pY;
         aPiece = pPiece;
-        Text aPieceImage = new Text(pPiece.getName());
-        getChildren().add(new Text(pPiece.getName()));
+        aPieceText = new Text(pPiece.getName());
+        setPickOnBounds(false);
+        setAlignment(Pos.CENTER);
+        getChildren().add(aPieceText);
     }
 }
