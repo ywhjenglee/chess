@@ -35,13 +35,13 @@ public class TileGUI extends GridPane {
         aRectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
                 if (aBoardGUI.getChessGame().getSelectedPiece() == null) {
-                    if (aBoardGUI.getChessGame().getTile(x, y).getPiece() != null) {
-                        aBoardGUI.getChessGame().selectPiece(aBoardGUI.getChessGame().getTile(x, y).getPiece());
+                    if (aBoardGUI.getChessGame().getPiece(x, y) != null) {
+                        aBoardGUI.getChessGame().selectPiece(aBoardGUI.getChessGame().getPiece(x, y));
                         aBoardGUI.displayLegalMoves();
                     }
                 } else {
-                    if (aBoardGUI.getChessGame().getSelectedLegalMoves()[x+2][y+2]) {
-                        aBoardGUI.getChessGame().movePiece(x+2, y+2);
+                    if (aBoardGUI.getChessGame().getSelectedLegalMoves()[x][y]) {
+                        aBoardGUI.getChessGame().movePiece(x, y);
                         aBoardGUI.refreshView();
                     }
                 }

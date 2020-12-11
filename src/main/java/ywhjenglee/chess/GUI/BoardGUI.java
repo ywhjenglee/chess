@@ -72,8 +72,8 @@ public class BoardGUI {
             aPiecesPane.getRowConstraints().add(aRowConstraints);
         }
         for (Piece piece : allPieces) {
-            int i = piece.getX() - 2;
-            int j = piece.getY() - 2;
+            int i = piece.getX();
+            int j = piece.getY();
             aPiecesPane.add(new PieceGUI(piece, i, j), i, 7-j);
         }
     }
@@ -91,7 +91,7 @@ public class BoardGUI {
         boolean[][] legalMoves = aChessGame.getSelectedLegalMoves();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                if(legalMoves[i+2][j+2]) {
+                if(legalMoves[i][j]) {
                     aMovesPane.add(new MoveGUI(i, j), i, 7-j);
                 }
             }
@@ -103,8 +103,8 @@ public class BoardGUI {
         aPiecesPane.getChildren().clear();
         allPieces = aChessGame.getAllPieces();
         for (Piece piece : allPieces) {
-            int i = piece.getX() - 2;
-            int j = piece.getY() - 2;
+            int i = piece.getX();
+            int j = piece.getY();
             aPiecesPane.add(new PieceGUI(piece, i, j), i, 7-j);
         }
     }

@@ -1,61 +1,58 @@
 package ywhjenglee.chess.Pieces;
 
-import ywhjenglee.chess.Tile;
-
 public class Rook extends Piece {
     
     public Rook(boolean pColor, int pX, int pY) {
         super("Rook", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard) {
-        legalMoves = new boolean[12][12];
+    public void generatePossibleMoves(Piece[][] pChessBoard) {
         boolean E = false;
         boolean W = false;
         boolean N = false;
         boolean S = false;
         for (int i = 1; i < 8; i++) {
             if (x+i < 10 && !E) {
-                if (pChessBoard[x+i][y].getPiece() == null) {
-                    legalMoves[x+i][y] = true;
+                if (paddedChessBoard[x+i][y] == null) {
+                    paddedLegalMoves[x+i][y] = true;
                 } else {
-                    if (pChessBoard[x+i][y].getPiece().getColor() != aColor) {
-                        legalMoves[x+i][y] = true;
+                    if (paddedChessBoard[x+i][y].getColor() != aColor) {
+                        paddedLegalMoves[x+i][y] = true;
                     }
                     E = true;
                 }
             }
             if (x-i > 1 && !W) {
-                if (pChessBoard[x-i][y].getPiece() == null) {
-                    legalMoves[x-i][y] = true;
+                if (paddedChessBoard[x-i][y] == null) {
+                    paddedLegalMoves[x-i][y] = true;
                 } else {
-                    if (pChessBoard[x-i][y].getPiece().getColor() != aColor) {
-                        legalMoves[x-i][y] = true;
+                    if (paddedChessBoard[x-i][y].getColor() != aColor) {
+                        paddedLegalMoves[x-i][y] = true;
                     }
                     W = true;
                 }
             }
             if (y+i < 10 && !N) {
-                if (pChessBoard[x][y+i].getPiece() == null) {
-                    legalMoves[x][y+i] = true;
+                if (paddedChessBoard[x][y+i] == null) {
+                    paddedLegalMoves[x][y+i] = true;
                 } else {
-                    if (pChessBoard[x][y+i].getPiece().getColor() != aColor) {
-                        legalMoves[x][y+i] = true;
+                    if (paddedChessBoard[x][y+i].getColor() != aColor) {
+                        paddedLegalMoves[x][y+i] = true;
                     }
                     N = true;
                 }
             }
             if (y-i > 1 && !S) {
-                if (pChessBoard[x][y-i].getPiece() == null) {
-                    legalMoves[x][y-i] = true;
+                if (paddedChessBoard[x][y-i] == null) {
+                    paddedLegalMoves[x][y-i] = true;
                 } else {
-                    if (pChessBoard[x][y-i].getPiece().getColor() != aColor) {
-                        legalMoves[x][y-i] = true;
+                    if (paddedChessBoard[x][y-i].getColor() != aColor) {
+                        paddedLegalMoves[x][y-i] = true;
                     }
                     S = true;
                 }
             }
         }
-        legalMoves[x][y] = true;
+        paddedLegalMoves[x][y] = true;
     }
 }

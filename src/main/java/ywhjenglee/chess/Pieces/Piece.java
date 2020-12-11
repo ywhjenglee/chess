@@ -1,7 +1,5 @@
 package ywhjenglee.chess.Pieces;
 
-import ywhjenglee.chess.Tile;
-
 public abstract class Piece {
 
     private final String aName;
@@ -9,14 +7,14 @@ public abstract class Piece {
     protected int x;
     protected int y;
     protected boolean hasMoved;
-    protected boolean[][] legalMoves;
-    protected Tile[][] paddedChessBoard;
+    protected boolean[][] paddedLegalMoves;
+    protected Piece[][] paddedChessBoard;
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;
         aColor = pColor;
-        x = pX;
-        y = pY;
+        x = pX + 2;
+        y = pY + 2;
         hasMoved = false;
     }
 
@@ -33,21 +31,21 @@ public abstract class Piece {
     }
 
     public void setPosition(int pX, int pY) {
-        x = pX;
-        y = pY;
+        x = pX + 2;
+        y = pY + 2;
     }
 
     public int getX() {
-        return x;
+        return x - 2;
     }
 
     public int getY() {
-        return y;
+        return y - 2;
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard) {
-        legalMoves = new boolean[8][8];
-        paddedChessBoard = new Tile[12][12];
+    public void generatePossibleMoves(Piece[][] pChessBoard) {
+        paddedLegalMoves = new boolean[12][12];
+        paddedChessBoard = new Piece[12][12];
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
                 paddedChessBoard[i+2][j+2] = pChessBoard[i][j];
@@ -56,28 +54,34 @@ public abstract class Piece {
     }
 
     public boolean[][] getLegalMoves() {
+        boolean[][] legalMoves = new boolean[8][8];
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 8; i++) {
+                legalMoves[i][j] = paddedLegalMoves[i+2][j+2];
+            }
+        }
         return legalMoves;
     }
 
-    protected void removeAllyOccupied(Tile[][] pChessBoard) {
+    protected void removeAllyOccupied(Piece[][] pPaddedChessBoard) {
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
-                if (pChessBoard[i][j].getPiece() != null) {
-                    if (pChessBoard[i][j].getPiece().getColor() == aColor) {
-                        legalMoves[i][j] = false;
+                if (pPaddedChessBoard[i][j] != null) {
+                    if (pPaddedChessBoard[i][j].getColor() == aColor) {
+                        paddedLegalMoves[i][j] = false;
                     }
                 }
             }
         }
     }
 
-    protected void removeKingWillBeInCheck(Tile[][] pChessBoard) {
+    protected void removeKingWillBeInCheck(Piece[][] pPaddedChessBoard) {
         King kingPiece = new King(true, 0, 0);
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
-                if (pChessBoard[i][j].getPiece() != null && pChessBoard[i][j].getPiece().getClass() == King.class) {
-                    if (pChessBoard[i][j].getPiece().getColor() == aColor) {
-                        kingPiece = (King) pChessBoard[i][j].getPiece();
+                if (pPaddedChessBoard[i][j] != null && pPaddedChessBoard[i][j].getClass() == King.class) {
+                    if (pPaddedChessBoard[i][j].getColor() == aColor) {
+                        kingPiece = (King) pPaddedChessBoard[i][j];
                         break;
                     }
                 }
@@ -85,12 +89,12 @@ public abstract class Piece {
         }
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
-                if (legalMoves[i][j]) {
-                    Tile[][] tempBoard = pChessBoard;
-                    tempBoard[i][j].setPiece(this);
-                    tempBoard[x][y].removePiece();
-                    if (kingPiece.isInCheck(tempBoard, kingPiece.x, kingPiece.y)) {
-                        legalMoves[i][j] = false;
+                if (paddedLegalMoves[i][j]) {
+                    Piece[][] tempBoard = pPaddedChessBoard;
+                    tempBoard[i][j] = this;
+                    tempBoard[x][y] = null;
+                    if (kingPiece.isInCheck(tempBoard)) {
+                        paddedLegalMoves[i][j] = false;
                     }
                 }
             }

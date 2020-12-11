@@ -1,6 +1,6 @@
 package ywhjenglee.chess.Pieces;
 
-import ywhjenglee.chess.Tile;
+import java.util.Arrays;
 
 public class Pawn extends Piece {
     
@@ -8,35 +8,35 @@ public class Pawn extends Piece {
         super("Pawn", pColor, pX, pY);
     }
 
-    public void generatePossibleMoves(Tile[][] pChessBoard) {
-        legalMoves = new boolean[12][12];
+    public void generatePossibleMoves(Piece[][] pChessBoard) {
+        super.generatePossibleMoves(pChessBoard);
         if (aColor) {
-            if (pChessBoard[x][y+1].getPiece() == null) {
-                legalMoves[x][y+1] = true;
-                if (pChessBoard[x][y+2].getPiece() == null && !hasMoved) {
-                    legalMoves[x][y+2] = true;
+            if (paddedChessBoard[x][y+1] == null) {
+                paddedLegalMoves[x][y+1] = true;
+                if (paddedChessBoard[x][y+2] == null && !hasMoved) {
+                    paddedLegalMoves[x][y+2] = true;
                 }
             }
-            if (pChessBoard[x+1][y+1].getPiece() != null && pChessBoard[x+1][y+1].getPiece().getColor() != aColor) {
-                legalMoves[x+1][y+1] = true;
+            if (paddedChessBoard[x+1][y+1] != null && paddedChessBoard[x+1][y+1].getColor() != aColor) {
+                paddedLegalMoves[x+1][y+1] = true;
             }
-            if (pChessBoard[x-1][y+1].getPiece() != null && pChessBoard[x-1][y+1].getPiece().getColor() != aColor) {
-                legalMoves[x-1][y+1] = true;
+            if (paddedChessBoard[x-1][y+1] != null && paddedChessBoard[x-1][y+1].getColor() != aColor) {
+                paddedLegalMoves[x-1][y+1] = true;
             }
         } else {
-            if (pChessBoard[x][y-1].getPiece() == null) {
-                legalMoves[x][y-1] = true;
-                if (pChessBoard[x][y-2].getPiece() == null && !hasMoved) {
-                    legalMoves[x][y-2] = true;
+            if (paddedChessBoard[x][y-1] == null) {
+                paddedLegalMoves[x][y-1] = true;
+                if (paddedChessBoard[x][y-2] == null && !hasMoved) {
+                    paddedLegalMoves[x][y-2] = true;
                 }
             }
-            if (pChessBoard[x+1][y-1].getPiece() != null && pChessBoard[x+1][y+1].getPiece().getColor() != aColor) {
-                legalMoves[x+1][y-1] = true;
+            if (paddedChessBoard[x+1][y-1] != null && paddedChessBoard[x+1][y+1].getColor() != aColor) {
+                paddedLegalMoves[x+1][y-1] = true;
             }
-            if (pChessBoard[x-1][y-1].getPiece() != null && pChessBoard[x-1][y+1].getPiece().getColor() != aColor) {
-                legalMoves[x-1][y-1] = true;
+            if (paddedChessBoard[x-1][y-1] != null && paddedChessBoard[x-1][y+1].getColor() != aColor) {
+                paddedLegalMoves[x-1][y-1] = true;
             }
         }
-        legalMoves[x][y] = true;
+        paddedLegalMoves[x][y] = true;
     }
 }
