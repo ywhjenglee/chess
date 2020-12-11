@@ -12,59 +12,60 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ChessGame {
-    
-    private static final boolean WHITE = true;
-    private static final boolean BLACK = false;
-    private static Piece[][] aChessBoard;
-    private static Piece selectedPiece;
-    private static int turnCount;
-    private static boolean whiteTurn;
-    private static King wKing;
-    private static King bKing;
-    private static List<Piece> whitesPieces;
-    private static List<Piece> blacksPieces;
-    private static List<Piece> whitesCaptures;
-    private static List<Piece> blacksCaptures;
-    private static boolean wCheck = false;
-    private static boolean bCheck = false;
+public class ChessModel {
 
-    public ChessGame() {
+    private Piece[][] aChessBoard;
+    private List<Piece> whitesPieces;
+    private List<Piece> blacksPieces;
+    private List<Piece> whitesCaptures;
+    private List<Piece> blacksCaptures;
+
+    private boolean whiteTurn;
+    private int turnCount;
+    private Piece selectedPiece;
+
+    private King wKing;
+    private King bKing;
+    private boolean wCheck = false;
+    private boolean bCheck = false;
+
+    public ChessModel() {
         aChessBoard = new Piece[8][8];
-        selectedPiece = null;
-        turnCount = 0;
-        whiteTurn = true;
         whitesPieces = new ArrayList<>();
         blacksPieces = new ArrayList<>();
         whitesCaptures = new ArrayList<>();
         blacksCaptures = new ArrayList<>();
+
+        whiteTurn = true;
+        turnCount = 0;
+        selectedPiece = null;
         setPieces();
     }
 
-    private static void setPieces() {
+    private void setPieces() {
         for (int i = 0; i < 8; i++) {
-            Piece wPawn = new Pawn(WHITE, i, 1);
+            Piece wPawn = new Pawn(true, i, 1);
             aChessBoard[i][1] = wPawn;
-            Piece bPawn = new Pawn(BLACK, i, 6);
+            Piece bPawn = new Pawn(false, i, 6);
             aChessBoard[i][6] = bPawn;
             whitesPieces.add(wPawn);
             blacksPieces.add(bPawn);
         }
-        Piece wRook1 = new Rook(WHITE, 0, 0);
+        Piece wRook1 = new Rook(true, 0, 0);
         aChessBoard[0][0] = wRook1;
-        Piece wKnight1 = new Knight(WHITE, 1, 0);
+        Piece wKnight1 = new Knight(true, 1, 0);
         aChessBoard[1][0] = wKnight1;
-        Piece wBishop1 = new Bishop(WHITE, 2, 0);
+        Piece wBishop1 = new Bishop(true, 2, 0);
         aChessBoard[2][0] = wBishop1;
-        Piece wQueen = new Queen(WHITE, 3, 0);
+        Piece wQueen = new Queen(true, 3, 0);
         aChessBoard[3][0] = wQueen;
-        wKing = new King(WHITE, 4, 0);
+        wKing = new King(true, 4, 0);
         aChessBoard[4][0] = wKing;
-        Piece wBishop2 = new Bishop(WHITE, 5, 0);
+        Piece wBishop2 = new Bishop(true, 5, 0);
         aChessBoard[5][0] = wBishop2;
-        Piece wKnight2 = new Knight(WHITE, 6, 0);
+        Piece wKnight2 = new Knight(true, 6, 0);
         aChessBoard[6][0] = wKnight2;
-        Piece wRook2 = new Rook(WHITE, 7, 0);
+        Piece wRook2 = new Rook(true, 7, 0);
         aChessBoard[7][0] = wRook2;
         whitesPieces.add(wRook1);
         whitesPieces.add(wKnight1);
@@ -75,21 +76,21 @@ public class ChessGame {
         whitesPieces.add(wKnight2);
         whitesPieces.add(wRook2);
 
-        Piece bRook1 = new Rook(BLACK, 0, 7);
+        Piece bRook1 = new Rook(false, 0, 7);
         aChessBoard[0][7] = bRook1;
-        Piece bKnight1 = new Knight(BLACK, 1, 7);
+        Piece bKnight1 = new Knight(false, 1, 7);
         aChessBoard[1][7] = bKnight1;
-        Piece bBishop1 = new Bishop(BLACK, 2, 7);
+        Piece bBishop1 = new Bishop(false, 2, 7);
         aChessBoard[2][7] = bBishop1;
-        Piece bQueen = new Queen(BLACK, 3, 7);
+        Piece bQueen = new Queen(false, 3, 7);
         aChessBoard[3][7]= bQueen;
-        bKing = new King(BLACK, 4, 7);
+        bKing = new King(false, 4, 7);
         aChessBoard[4][7] = bKing;
-        Piece bBishop2 = new Bishop(BLACK, 5, 7);
+        Piece bBishop2 = new Bishop(false, 5, 7);
         aChessBoard[5][7] = bBishop2;
-        Piece bKnight2 = new Knight(BLACK, 6, 7);
+        Piece bKnight2 = new Knight(false, 6, 7);
         aChessBoard[6][7] = bKnight2;
-        Piece bRook2 = new Rook(BLACK, 7, 7);
+        Piece bRook2 = new Rook(false, 7, 7);
         aChessBoard[7][7] = bRook2;
         blacksPieces.add(bRook1);
         blacksPieces.add(bKnight1);
@@ -150,12 +151,12 @@ public class ChessGame {
     private void scanCheck() {
         if (whiteTurn) {
             if (bKing.isInCheck(aChessBoard)) {
-                System.out.println("Black King in Check");
+                System.out.println("false King in Check");
                 bCheck = true;
             }
         } else {
             if (wKing.isInCheck(aChessBoard)) {
-                System.out.println("White King in Check");
+                System.out.println("true King in Check");
                 wCheck = true;
             }
         }
@@ -192,9 +193,9 @@ public class ChessGame {
 
     private void getResult() {
         if (wCheck) {
-            System.out.println("Black Wins");
+            System.out.println("false Wins");
         } else if (bCheck) {
-            System.out.println("White Wins");
+            System.out.println("true Wins");
         } else {
             System.out.println("Stalemate");
         }
@@ -210,6 +211,10 @@ public class ChessGame {
 
     public Piece getSelectedPiece() {
         return selectedPiece;
+    }
+
+    public Piece[][] getChessBoard() {
+        return aChessBoard;
     }
 
     public List<Piece> getWhitesPieces() {

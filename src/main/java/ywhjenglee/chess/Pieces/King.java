@@ -21,103 +21,105 @@ public class King extends Piece {
         paddedLegalMoves[x][y] = true;
     }
 
-    private void removeKingInCheck(Piece[][] paddedChessBoard) {
+    private void removeKingInCheck(Piece[][] pPaddedChessBoard) {
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
-                if (paddedLegalMoves[i][j] && isInCheck(paddedChessBoard)) {
+                if (paddedLegalMoves[i][j] && isInCheck(pPaddedChessBoard)) {
                     paddedLegalMoves[i][j] = false;
                 }
             }
         }
     }
 
-    public boolean isInCheck(Piece[][] paddedChessBoard) {
+    public boolean isInCheck(Piece[][] pPaddedChessBoard) {
+        /*
         // Check Pawn and King
-        if (paddedChessBoard[x+1][y+1] != null && paddedChessBoard[x+1][y+1].getColor() != aColor) {
-            if (paddedChessBoard[x+1][y+1].getClass() == King.class ||
-            (paddedChessBoard[x+1][y+1].getClass() == Pawn.class && paddedChessBoard[x+1][y+1].getColor())) {
+        if (pPaddedChessBoard[x+1][y+1] != null && pPaddedChessBoard[x+1][y+1].getColor() != aColor) {
+            if (pPaddedChessBoard[x+1][y+1].getClass() == King.class ||
+            (pPaddedChessBoard[x+1][y+1].getClass() == Pawn.class && pPaddedChessBoard[x+1][y+1].getColor())) {
                 return true;
             }
         }
-        if (paddedChessBoard[x][y+1] != null && paddedChessBoard[x][y+1].getColor() != aColor) {
-            if (paddedChessBoard[x][y+1].getClass() == King.class) {
+        if (pPaddedChessBoard[x][y+1] != null && pPaddedChessBoard[x][y+1].getColor() != aColor) {
+            if (pPaddedChessBoard[x][y+1].getClass() == King.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-1][y+1] != null && paddedChessBoard[x-1][y+1].getColor() != aColor) {
-            if (paddedChessBoard[x-1][y+1].getClass() == King.class ||
-            (paddedChessBoard[x-1][y+1].getClass() == Pawn.class && paddedChessBoard[x-1][y+1].getColor())) {
+        if (pPaddedChessBoard[x-1][y+1] != null && pPaddedChessBoard[x-1][y+1].getColor() != aColor) {
+            if (pPaddedChessBoard[x-1][y+1].getClass() == King.class ||
+            (pPaddedChessBoard[x-1][y+1].getClass() == Pawn.class && pPaddedChessBoard[x-1][y+1].getColor())) {
                 return true;
             }
         }
-        if (paddedChessBoard[x+1][y] != null && paddedChessBoard[x+1][y].getColor() != aColor) {
-            if (paddedChessBoard[x+1][y].getClass() == King.class) {
+        if (pPaddedChessBoard[x+1][y] != null && pPaddedChessBoard[x+1][y].getColor() != aColor) {
+            if (pPaddedChessBoard[x+1][y].getClass() == King.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-1][y] != null && paddedChessBoard[x-1][y].getColor() != aColor) {
-            if (paddedChessBoard[x-1][y].getClass() == King.class) {
+        if (pPaddedChessBoard[x-1][y] != null && pPaddedChessBoard[x-1][y].getColor() != aColor) {
+            if (pPaddedChessBoard[x-1][y].getClass() == King.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x+1][y-1] != null && paddedChessBoard[x+1][y-1].getColor() != aColor) {
-            if (paddedChessBoard[x+1][y-1].getClass() == King.class ||
-            (paddedChessBoard[x+1][y-1].getClass() == Pawn.class && !paddedChessBoard[x+1][y-1].getColor())) {
+        if (pPaddedChessBoard[x+1][y-1] != null && pPaddedChessBoard[x+1][y-1].getColor() != aColor) {
+            if (pPaddedChessBoard[x+1][y-1].getClass() == King.class ||
+            (pPaddedChessBoard[x+1][y-1].getClass() == Pawn.class && !pPaddedChessBoard[x+1][y-1].getColor())) {
                 return true;
             }
         }
-        if (paddedChessBoard[x][y-1] != null && paddedChessBoard[x][y-1].getColor() != aColor) {
-            if (paddedChessBoard[x][y-1].getClass() == King.class) {
+        if (pPaddedChessBoard[x][y-1] != null && pPaddedChessBoard[x][y-1].getColor() != aColor) {
+            if (pPaddedChessBoard[x][y-1].getClass() == King.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-1][y-1] != null && paddedChessBoard[x-1][y-1].getColor() != aColor) {
-            if (paddedChessBoard[x-1][y-1].getClass() == King.class ||
-            (paddedChessBoard[x-1][y-1].getClass() == Pawn.class && !paddedChessBoard[x-1][y-1].getColor())) {
+        if (pPaddedChessBoard[x-1][y-1] != null && pPaddedChessBoard[x-1][y-1].getColor() != aColor) {
+            if (pPaddedChessBoard[x-1][y-1].getClass() == King.class ||
+            (pPaddedChessBoard[x-1][y-1].getClass() == Pawn.class && !pPaddedChessBoard[x-1][y-1].getColor())) {
                 return true;
             }
-        }
+        }*/
         // Check Knight
-        if (paddedChessBoard[x+1][y+2] != null && paddedChessBoard[x+1][y+2].getColor() != aColor) {
-            if (paddedChessBoard[x+1][y+2].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x+1][y+2] != null && pPaddedChessBoard[x+1][y+2].getColor() != aColor) {
+            if (pPaddedChessBoard[x+1][y+2].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-1][y+2] != null && paddedChessBoard[x-1][y+2].getColor() != aColor) {
-            if (paddedChessBoard[x-1][y+2].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x-1][y+2] != null && pPaddedChessBoard[x-1][y+2].getColor() != aColor) {
+            if (pPaddedChessBoard[x-1][y+2].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x+1][y-2] != null && paddedChessBoard[x+1][y-2].getColor() != aColor) {
-            if (paddedChessBoard[x+1][y-2].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x+1][y-2] != null && pPaddedChessBoard[x+1][y-2].getColor() != aColor) {
+            if (pPaddedChessBoard[x+1][y-2].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-1][y-2] != null && paddedChessBoard[x-1][y-2].getColor() != aColor) {
-            if (paddedChessBoard[x-1][y-2].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x-1][y-2] != null && pPaddedChessBoard[x-1][y-2].getColor() != aColor) {
+            if (pPaddedChessBoard[x-1][y-2].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x+2][y+1] != null && paddedChessBoard[x+2][y+1].getColor() != aColor) {
-            if (paddedChessBoard[x+2][y+1].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x+2][y+1] != null && pPaddedChessBoard[x+2][y+1].getColor() != aColor) {
+            if (pPaddedChessBoard[x+2][y+1].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-2][y+1] != null && paddedChessBoard[x-2][y+1].getColor() != aColor) {
-            if (paddedChessBoard[x-2][y+1].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x-2][y+1] != null && pPaddedChessBoard[x-2][y+1].getColor() != aColor) {
+            if (pPaddedChessBoard[x-2][y+1].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x+2][y-1] != null && paddedChessBoard[x+2][y-1].getColor() != aColor) {
-            if (paddedChessBoard[x+2][y-1].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x+2][y-1] != null && pPaddedChessBoard[x+2][y-1].getColor() != aColor) {
+            if (pPaddedChessBoard[x+2][y-1].getClass() == Knight.class) {
                 return true;
             }
         }
-        if (paddedChessBoard[x-2][y-1] != null && paddedChessBoard[x-2][y-1].getColor() != aColor) {
-            if (paddedChessBoard[x-2][y-1].getClass() == Knight.class) {
+        if (pPaddedChessBoard[x-2][y-1] != null && pPaddedChessBoard[x-2][y-1].getColor() != aColor) {
+            if (pPaddedChessBoard[x-2][y-1].getClass() == Knight.class) {
                 return true;
             }
         }
+        /*
         // Check Bishop and Queen
         boolean NE = false;
         boolean NW = false;
@@ -125,8 +127,8 @@ public class King extends Piece {
         boolean SW = false;
         for (int i = 1; i < 8; i++) {
             if (x+i < 10 && y+i < 10 && !NE) {
-                if (paddedChessBoard[x+i][y+i] != null && paddedChessBoard[x+i][y+i].getColor() != aColor) {
-                    if (paddedChessBoard[x+i][y+i].getClass() == Bishop.class || paddedChessBoard[x+i][y+i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x+i][y+i] != null && pPaddedChessBoard[x+i][y+i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x+i][y+i].getClass() == Bishop.class || pPaddedChessBoard[x+i][y+i].getClass() == Queen.class) {
                         return true;
                     } else {
                         NE = true;
@@ -134,8 +136,8 @@ public class King extends Piece {
                 }
             }
             if (x-i > 1 && y+i < 10 && !NW) {
-                if (paddedChessBoard[x-i][y+i] != null && paddedChessBoard[x-i][y+i].getColor() != aColor) {
-                    if (paddedChessBoard[x-i][y+i].getClass() == Bishop.class || paddedChessBoard[x-i][y+i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x-i][y+i] != null && pPaddedChessBoard[x-i][y+i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x-i][y+i].getClass() == Bishop.class || pPaddedChessBoard[x-i][y+i].getClass() == Queen.class) {
                         return true;
                     } else {
                         NW = true;
@@ -143,8 +145,8 @@ public class King extends Piece {
                 }
             }
             if (x+i < 10 && y-i > 1 && !SE) {
-                if (paddedChessBoard[x+i][y-i] != null && paddedChessBoard[x+i][y-i].getColor() != aColor) {
-                    if (paddedChessBoard[x+i][y-i].getClass() == Bishop.class || paddedChessBoard[x+i][y-i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x+i][y-i] != null && pPaddedChessBoard[x+i][y-i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x+i][y-i].getClass() == Bishop.class || pPaddedChessBoard[x+i][y-i].getClass() == Queen.class) {
                         return true;
                     } else {
                         SE = true;
@@ -152,15 +154,15 @@ public class King extends Piece {
                 }
             }
             if (x-i > 1 && y-i > 1 && !SW) {
-                if (paddedChessBoard[x-i][y-i] != null && paddedChessBoard[x-i][y-i].getColor() != aColor) {
-                    if (paddedChessBoard[x-i][y-i].getClass() == Bishop.class || paddedChessBoard[x-i][y-i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x-i][y-i] != null && pPaddedChessBoard[x-i][y-i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x-i][y-i].getClass() == Bishop.class || pPaddedChessBoard[x-i][y-i].getClass() == Queen.class) {
                         return true;
                     } else {
                         SW = true;
                     }
                 }
             }
-        }
+        }*/
         // Check Rook and Queen
         boolean E = false;
         boolean W = false;
@@ -168,8 +170,8 @@ public class King extends Piece {
         boolean S = false;
         for (int i = 1; i < 8; i++) {
             if (x+i < 10 && !E) {
-                if (paddedChessBoard[x+i][y] != null && paddedChessBoard[x+i][y].getColor() != aColor) {
-                    if (paddedChessBoard[x+i][y].getClass() == Rook.class || paddedChessBoard[x+i][y].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x+i][y] != null && pPaddedChessBoard[x+i][y].getColor() != aColor) {
+                    if (pPaddedChessBoard[x+i][y].getClass() == Rook.class || pPaddedChessBoard[x+i][y].getClass() == Queen.class) {
                         return true;
                     } else {
                         E = true;
@@ -177,8 +179,8 @@ public class King extends Piece {
                 }
             }
             if (x-i > 1 && !W) {
-                if (paddedChessBoard[x-i][y] != null && paddedChessBoard[x-i][y].getColor() != aColor) {
-                    if (paddedChessBoard[x-i][y].getClass() == Rook.class || paddedChessBoard[x-i][y].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x-i][y] != null && pPaddedChessBoard[x-i][y].getColor() != aColor) {
+                    if (pPaddedChessBoard[x-i][y].getClass() == Rook.class || pPaddedChessBoard[x-i][y].getClass() == Queen.class) {
                         return true;
                     } else {
                         W = true;
@@ -186,8 +188,8 @@ public class King extends Piece {
                 }
             }
             if (y+i < 10 && !N) {
-                if (paddedChessBoard[x][y+i] != null && paddedChessBoard[x][y+i].getColor() != aColor) {
-                    if (paddedChessBoard[x][y+i].getClass() == Rook.class || paddedChessBoard[x][y+i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x][y+i] != null && pPaddedChessBoard[x][y+i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x][y+i].getClass() == Rook.class || pPaddedChessBoard[x][y+i].getClass() == Queen.class) {
                         return true;
                     } else {
                         N = true;
@@ -195,8 +197,8 @@ public class King extends Piece {
                 }
             }
             if (y-i > 1 && !S) {
-                if (paddedChessBoard[x][y-i] != null && paddedChessBoard[x][y-i].getColor() != aColor) {
-                    if (paddedChessBoard[x][y-i].getClass() == Rook.class || paddedChessBoard[x][y-i].getClass() == Queen.class) {
+                if (pPaddedChessBoard[x][y-i] != null && pPaddedChessBoard[x][y-i].getColor() != aColor) {
+                    if (pPaddedChessBoard[x][y-i].getClass() == Rook.class || pPaddedChessBoard[x][y-i].getClass() == Queen.class) {
                         return true;
                     } else {
                         S = true;

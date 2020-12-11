@@ -1,6 +1,6 @@
 package ywhjenglee.chess.GUI;
 
-import ywhjenglee.chess.ChessGame;
+import ywhjenglee.chess.ChessModel;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,7 +14,7 @@ import javafx.scene.layout.Priority;
 
 public class ChessGUI extends Application {
 
-	private ChessGame aChessGame;
+	private ChessModel aChessModel;
 
 	private static GridPane aMainPane;
 	private static GridPane aGamePane;
@@ -26,8 +26,8 @@ public class ChessGUI extends Application {
 
 	@Override
 	public void start(Stage pStage){
-		// Create game
-		aChessGame = new ChessGame();
+		// Create model
+		aChessModel = new ChessModel();
 
 		// Initialize layouts
 		aMainPane = new GridPane();
@@ -82,7 +82,7 @@ public class ChessGUI extends Application {
 	}
 
 	private StackPane createBoard() {
-		BoardGUI aBoardGUI = new BoardGUI(aChessGame);
+		BoardGUI aBoardGUI = new BoardGUI(aChessModel);
 		return aBoardGUI.getView();
 	}
 

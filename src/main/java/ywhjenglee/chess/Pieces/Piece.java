@@ -87,15 +87,22 @@ public abstract class Piece {
                 }
             }
         }
+        Piece[][] tempBoard = new Piece[12][12];
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
+                tempBoard[i][j] = pPaddedChessBoard[i][j];
+            }
+        }
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
                 if (paddedLegalMoves[i][j]) {
-                    Piece[][] tempBoard = pPaddedChessBoard;
                     tempBoard[i][j] = this;
                     tempBoard[x][y] = null;
                     if (kingPiece.isInCheck(tempBoard)) {
                         paddedLegalMoves[i][j] = false;
                     }
+                    tempBoard[i][j] = null;
+                    tempBoard[x][y] = this;
                 }
             }
         }

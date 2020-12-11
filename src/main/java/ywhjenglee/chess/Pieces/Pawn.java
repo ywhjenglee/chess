@@ -1,7 +1,5 @@
 package ywhjenglee.chess.Pieces;
 
-import java.util.Arrays;
-
 public class Pawn extends Piece {
     
     public Pawn(boolean pColor, int pX, int pY) {
@@ -30,13 +28,14 @@ public class Pawn extends Piece {
                     paddedLegalMoves[x][y-2] = true;
                 }
             }
-            if (paddedChessBoard[x+1][y-1] != null && paddedChessBoard[x+1][y+1].getColor() != aColor) {
+            if (paddedChessBoard[x+1][y-1] != null && paddedChessBoard[x+1][y-1].getColor() != aColor) {
                 paddedLegalMoves[x+1][y-1] = true;
             }
-            if (paddedChessBoard[x-1][y-1] != null && paddedChessBoard[x-1][y+1].getColor() != aColor) {
+            if (paddedChessBoard[x-1][y-1] != null && paddedChessBoard[x-1][y-1].getColor() != aColor) {
                 paddedLegalMoves[x-1][y-1] = true;
             }
         }
+        removeKingWillBeInCheck(paddedChessBoard);
         paddedLegalMoves[x][y] = true;
     }
 }
