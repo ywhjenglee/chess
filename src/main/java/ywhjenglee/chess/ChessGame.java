@@ -25,6 +25,7 @@ public class ChessGame {
     private static King bKing;
     private static List<Piece> whitesPieces;
     private static List<Piece> blacksPieces;
+    private static List<Piece> allPieces;
     private static List<Piece> whitesCaptures;
     private static List<Piece> blacksCaptures;
     private static boolean wCheck = false;
@@ -37,6 +38,7 @@ public class ChessGame {
         whiteTurn = true;
         whitesPieces = new ArrayList<>();
         blacksPieces = new ArrayList<>();
+        allPieces = new ArrayList<>();
         whitesCaptures = new ArrayList<>();
         blacksCaptures = new ArrayList<>();
         createTiles();
@@ -109,6 +111,9 @@ public class ChessGame {
         blacksPieces.add(bBishop2);
         blacksPieces.add(bKnight2);
         blacksPieces.add(bRook2);
+
+        allPieces.addAll(whitesPieces);
+        allPieces.addAll(blacksPieces);
     }
 
     public void selectPiece(int pX, int pY) {
@@ -207,6 +212,18 @@ public class ChessGame {
 
     public int getTurnCount() {
         return turnCount;
+    }
+
+    public List<Piece> getWhitesPieces() {
+        return Collections.unmodifiableList(whitesPieces);
+    }
+
+    public List<Piece> getBlacksPieces() {
+        return Collections.unmodifiableList(blacksPieces);
+    }
+
+    public List<Piece> getAllPieces() {
+        return Collections.unmodifiableList(allPieces);
     }
 
     public List<Piece> getWhitesCaptures() {
