@@ -17,7 +17,7 @@ public class Knight extends Piece {
         paddedLegalMoves[x+2][y-1] = true;
         paddedLegalMoves[x-2][y-1] = true;
         removeAllyOccupied(paddedChessBoard);
-        removeKingWillBeInCheck(paddedChessBoard);
+        removeKingInCheck(paddedChessBoard);
         paddedLegalMoves[x][y] = true;
     }
 }

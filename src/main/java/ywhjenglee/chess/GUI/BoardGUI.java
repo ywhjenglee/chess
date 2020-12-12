@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
@@ -26,7 +25,7 @@ public class BoardGUI {
     private String[] aWhitePieceImage;
     private String[] aBlackPieceImage;
 
-    private static StackPane aChessBoard;
+    private static StackPane aChessBoardView;
     private static GridPane aTilesPane;
     private static GridPane aPiecesPane;
     private static GridPane aMovesPane;
@@ -40,11 +39,11 @@ public class BoardGUI {
     public BoardGUI(ChessModel pChessModel) {
         // Initialize layout
         aChessModel = pChessModel;
-        aChessBoard = new StackPane();
-        aChessBoard.setPadding(new Insets(25));
-        aChessBoard.setAlignment(Pos.CENTER);
-        aChessBoard.setPrefHeight(600);
-        aChessBoard.setPrefWidth(600);
+        aChessBoardView = new StackPane();
+        aChessBoardView.setPadding(new Insets(25));
+        aChessBoardView.setAlignment(Pos.CENTER);
+        aChessBoardView.setPrefHeight(600);
+        aChessBoardView.setPrefWidth(600);
 
         // Set column and row constraints for BoardGUI
         aColumnConstraints = new ColumnConstraints();
@@ -59,7 +58,7 @@ public class BoardGUI {
         createPiecesPane();
         createMovesPane();
         createControllerPane();
-        aChessBoard.getChildren().addAll(aTilesPane, aPiecesPane, aMovesPane, aControllerPane);
+        aChessBoardView.getChildren().addAll(aTilesPane, aPiecesPane, aMovesPane, aControllerPane);
     }
 
     private void createTilesPane() {
@@ -123,7 +122,7 @@ public class BoardGUI {
         }
     }
 
-    private void refreshMoves() {
+    public void refreshMoves() {
         aMovesPane.getChildren().clear();
         if (aChessModel.getSelectedPiece() != null) {
             boolean[][] legalMoves = aChessModel.getSelectedLegalMoves();
@@ -139,8 +138,8 @@ public class BoardGUI {
     }
 
     public void refreshView() {
+        aMovesPane.getChildren().clear();
         refreshPieces();
-        refreshMoves();
     }
 
     public ChessModel getChessModel() {
@@ -148,6 +147,6 @@ public class BoardGUI {
     }
 
     public StackPane getView() {
-        return aChessBoard;
+        return aChessBoardView;
     }
 }

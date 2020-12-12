@@ -26,7 +26,7 @@ public class ChessController extends Rectangle {
                 if (aBoardGUI.getChessModel().getSelectedPiece() == null) {
                     if (aBoardGUI.getChessModel().getPiece(x, y) != null) {
                         aBoardGUI.getChessModel().selectPiece(aBoardGUI.getChessModel().getPiece(x, y));
-                        aBoardGUI.refreshView();
+                        aBoardGUI.refreshMoves();
                     }
                 } else {
                     if (aBoardGUI.getChessModel().getSelectedLegalMoves()[x][y]) {

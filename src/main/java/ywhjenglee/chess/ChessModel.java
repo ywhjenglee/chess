@@ -105,12 +105,12 @@ public class ChessModel {
     public void selectPiece(Piece pPiece) {
         if (pPiece.getColor() == whiteTurn) {
             selectedPiece = pPiece;
+            selectedPiece.generatePossibleMoves(aChessBoard);
         }
     }
 
     public boolean[][] getSelectedLegalMoves() {
         if (selectedPiece != null) {
-            selectedPiece.generatePossibleMoves(aChessBoard);
             return selectedPiece.getLegalMoves();
         }
         return new boolean[8][8];
@@ -136,10 +136,10 @@ public class ChessModel {
                     selectedPiece.setHasMoved();
                     wCheck = false;
                     bCheck = false;
-                    /*scanCheck();
+                    scanCheck();
                     if (scanGameOver()) {
                         getResult();
-                    }*/
+                    }
                     whiteTurn = !whiteTurn;
                     turnCount++;
                 }
@@ -149,14 +149,20 @@ public class ChessModel {
     }
 
     private void scanCheck() {
+        Piece[][] paddedChessBoard = new Piece[12][12];
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 8; i++) {
+                paddedChessBoard[i+2][j+2] = aChessBoard[i][j];
+            }
+        }
         if (whiteTurn) {
-            if (bKing.isInCheck(aChessBoard)) {
-                System.out.println("false King in Check");
+            if (bKing.isInCheck(paddedChessBoard)) {
+                System.out.println("Black King in Check");
                 bCheck = true;
             }
         } else {
-            if (wKing.isInCheck(aChessBoard)) {
-                System.out.println("true King in Check");
+            if (wKing.isInCheck(paddedChessBoard)) {
+                System.out.println("White King in Check");
                 wCheck = true;
             }
         }
@@ -211,10 +217,6 @@ public class ChessModel {
 
     public Piece getSelectedPiece() {
         return selectedPiece;
-    }
-
-    public Piece[][] getChessBoard() {
-        return aChessBoard;
     }
 
     public List<Piece> getWhitesPieces() {

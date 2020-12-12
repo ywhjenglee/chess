@@ -54,7 +54,7 @@ public class Bishop extends Piece {
                 }
             }
         }
-        removeKingWillBeInCheck(paddedChessBoard);
+        removeKingInCheck(paddedChessBoard);
         paddedLegalMoves[x][y] = true;
     }
 }

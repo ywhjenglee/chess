@@ -35,7 +35,7 @@ public class Pawn extends Piece {
                 paddedLegalMoves[x-1][y-1] = true;
             }
         }
-        removeKingWillBeInCheck(paddedChessBoard);
+        removeKingInCheck(paddedChessBoard);
         paddedLegalMoves[x][y] = true;
     }
 }

@@ -100,7 +100,7 @@ public class Queen extends Piece {
                 }
             }
         }
-        removeKingWillBeInCheck(paddedChessBoard);
+        removeKingInCheck(paddedChessBoard);
         paddedLegalMoves[x][y] = true;
     }
 }
