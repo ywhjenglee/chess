@@ -7,14 +7,13 @@ public abstract class Piece {
     protected int x;
     protected int y;
     protected boolean hasMoved;
-    protected boolean[][] paddedLegalMoves;
-    protected Piece[][] paddedChessBoard;
+    protected boolean[][] aLegalMoves;
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;
         aColor = pColor;
-        x = pX + 2;
-        y = pY + 2;
+        x = pX;
+        y = pY;
         hasMoved = false;
     }
 
@@ -31,70 +30,58 @@ public abstract class Piece {
     }
 
     public void setPosition(int pX, int pY) {
-        x = pX + 2;
-        y = pY + 2;
+        x = pX;
+        y = pY;
     }
 
     public int getX() {
-        return x - 2;
+        return x;
     }
 
     public int getY() {
-        return y - 2;
+        return y;
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {
-        paddedLegalMoves = new boolean[12][12];
-        paddedChessBoard = new Piece[12][12];
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
-                paddedChessBoard[i+2][j+2] = pChessBoard[i][j];
-            }
-        }
+        aLegalMoves = new boolean[12][12];
     }
 
     public boolean[][] getLegalMoves() {
-        boolean[][] legalMoves = new boolean[8][8];
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
-                legalMoves[i][j] = paddedLegalMoves[i+2][j+2];
-            }
-        }
-        return legalMoves;
+        return aLegalMoves;
     }
 
-    protected void removeAllyOccupied(Piece[][] pPaddedChessBoard) {
+    protected void removeAllyOccupied(Piece[][] pChessBoard) {
         for (int j = 2; j < 10; j++) {
             for (int i = 2; i < 10; i++) {
-                if (pPaddedChessBoard[i][j] != null) {
-                    if (pPaddedChessBoard[i][j].getColor() == aColor) {
-                        paddedLegalMoves[i][j] = false;
+                if (pChessBoard[i][j] != null) {
+                    if (pChessBoard[i][j].getColor() == aColor) {
+                        aLegalMoves[i][j] = false;
                     }
                 }
             }
         }
     }
 
-    protected void removeKingInCheck(Piece[][] pPaddedChessBoard) {
+    protected void removeKingInCheck(Piece[][] pChessBoard) {
         King kingPiece = null;
         if (this.getClass() == King.class) {
             kingPiece = (King) this;
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (paddedLegalMoves[i][j]) {
+                    if (aLegalMoves[i][j]) {
                         Piece[][] tempBoard = new Piece[12][12];
                         for (int n = 2; n < 10; n++) {
                             for (int m = 2; m < 10; m++) {
-                                tempBoard[m][n] = pPaddedChessBoard[m][n];
+                                tempBoard[m][n] = pChessBoard[m][n];
                             }
                         }
                         tempBoard[i][j] = this;
                         tempBoard[x][y] = null;
                         int tempX = kingPiece.getX();
                         int tempY = kingPiece.getY();
-                        kingPiece.setPosition(i-2, j-2);
+                        kingPiece.setPosition(i, j);
                         if (kingPiece.isInCheck(tempBoard)) {
-                            paddedLegalMoves[i][j] = false;
+                            aLegalMoves[i][j] = false;
                         }
                         tempBoard[i][j] = null;
                         tempBoard[x][y] = this;
@@ -105,9 +92,9 @@ public abstract class Piece {
         } else {
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (pPaddedChessBoard[i][j] != null && pPaddedChessBoard[i][j].getClass() == King.class) {
-                        if (pPaddedChessBoard[i][j].getColor() == aColor) {
-                            kingPiece = (King) pPaddedChessBoard[i][j];
+                    if (pChessBoard[i][j] != null && pChessBoard[i][j].getClass() == King.class) {
+                        if (pChessBoard[i][j].getColor() == aColor) {
+                            kingPiece = (King) pChessBoard[i][j];
                             break;
                         }
                     }
@@ -115,17 +102,17 @@ public abstract class Piece {
             }
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (paddedLegalMoves[i][j]) {
+                    if (aLegalMoves[i][j]) {
                         Piece[][] tempBoard = new Piece[12][12];
                         for (int n = 2; n < 10; n++) {
                             for (int m = 2; m < 10; m++) {
-                                tempBoard[m][n] = pPaddedChessBoard[m][n];
+                                tempBoard[m][n] = pChessBoard[m][n];
                             }
                         }
                         tempBoard[i][j] = this;
                         tempBoard[x][y] = null;
                         if (kingPiece.isInCheck(tempBoard)) {
-                            paddedLegalMoves[i][j] = false;
+                            aLegalMoves[i][j] = false;
                         }
                         tempBoard[i][j] = null;
                         tempBoard[x][y] = this;

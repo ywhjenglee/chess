@@ -115,8 +115,8 @@ public class BoardGUI {
     private void refreshPieces() {
         aPiecesPane.getChildren().clear();
         for (Piece piece : aChessModel.getAllPieces()) {
-            int i = piece.getX();
-            int j = piece.getY();
+            int i = piece.getX()-2;
+            int j = piece.getY()-2;
             Text aPieceText = new Text(piece.getName());
             aPiecesPane.add(aPieceText, i, 7-j);
         }
@@ -125,7 +125,7 @@ public class BoardGUI {
     public void refreshMoves() {
         aMovesPane.getChildren().clear();
         if (aChessModel.getSelectedPiece() != null) {
-            boolean[][] legalMoves = aChessModel.getSelectedLegalMoves();
+            boolean[][] legalMoves = aChessModel.getVisibleSelectedLegalMoves();
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
                     if(legalMoves[i][j]) {

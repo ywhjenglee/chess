@@ -30,7 +30,7 @@ public class ChessModel {
     private boolean bCheck = false;
 
     public ChessModel() {
-        aChessBoard = new Piece[8][8];
+        aChessBoard = new Piece[12][12];
         whitesPieces = new ArrayList<>();
         blacksPieces = new ArrayList<>();
         whitesCaptures = new ArrayList<>();
@@ -43,30 +43,30 @@ public class ChessModel {
     }
 
     private void setPieces() {
-        for (int i = 0; i < 8; i++) {
-            Piece wPawn = new Pawn(true, i, 1);
-            aChessBoard[i][1] = wPawn;
-            Piece bPawn = new Pawn(false, i, 6);
-            aChessBoard[i][6] = bPawn;
+        for (int i = 2; i < 10; i++) {
+            Piece wPawn = new Pawn(true, i, 3);
+            aChessBoard[i][3] = wPawn;
+            Piece bPawn = new Pawn(false, i, 8);
+            aChessBoard[i][8] = bPawn;
             whitesPieces.add(wPawn);
             blacksPieces.add(bPawn);
         }
-        Piece wRook1 = new Rook(true, 0, 0);
-        aChessBoard[0][0] = wRook1;
-        Piece wKnight1 = new Knight(true, 1, 0);
-        aChessBoard[1][0] = wKnight1;
-        Piece wBishop1 = new Bishop(true, 2, 0);
-        aChessBoard[2][0] = wBishop1;
-        Piece wQueen = new Queen(true, 3, 0);
-        aChessBoard[3][0] = wQueen;
-        wKing = new King(true, 4, 0);
-        aChessBoard[4][0] = wKing;
-        Piece wBishop2 = new Bishop(true, 5, 0);
-        aChessBoard[5][0] = wBishop2;
-        Piece wKnight2 = new Knight(true, 6, 0);
-        aChessBoard[6][0] = wKnight2;
-        Piece wRook2 = new Rook(true, 7, 0);
-        aChessBoard[7][0] = wRook2;
+        Piece wRook1 = new Rook(true, 2, 2);
+        aChessBoard[2][2] = wRook1;
+        Piece wKnight1 = new Knight(true, 3, 2);
+        aChessBoard[3][2] = wKnight1;
+        Piece wBishop1 = new Bishop(true, 4, 2);
+        aChessBoard[4][2] = wBishop1;
+        Piece wQueen = new Queen(true, 5, 2);
+        aChessBoard[5][2] = wQueen;
+        wKing = new King(true, 6, 2);
+        aChessBoard[6][2] = wKing;
+        Piece wBishop2 = new Bishop(true, 7, 2);
+        aChessBoard[7][2] = wBishop2;
+        Piece wKnight2 = new Knight(true, 8, 2);
+        aChessBoard[8][2] = wKnight2;
+        Piece wRook2 = new Rook(true, 9, 2);
+        aChessBoard[9][2] = wRook2;
         whitesPieces.add(wRook1);
         whitesPieces.add(wKnight1);
         whitesPieces.add(wBishop1);
@@ -76,22 +76,22 @@ public class ChessModel {
         whitesPieces.add(wKnight2);
         whitesPieces.add(wRook2);
 
-        Piece bRook1 = new Rook(false, 0, 7);
-        aChessBoard[0][7] = bRook1;
-        Piece bKnight1 = new Knight(false, 1, 7);
-        aChessBoard[1][7] = bKnight1;
-        Piece bBishop1 = new Bishop(false, 2, 7);
-        aChessBoard[2][7] = bBishop1;
-        Piece bQueen = new Queen(false, 3, 7);
-        aChessBoard[3][7]= bQueen;
-        bKing = new King(false, 4, 7);
-        aChessBoard[4][7] = bKing;
-        Piece bBishop2 = new Bishop(false, 5, 7);
-        aChessBoard[5][7] = bBishop2;
-        Piece bKnight2 = new Knight(false, 6, 7);
-        aChessBoard[6][7] = bKnight2;
-        Piece bRook2 = new Rook(false, 7, 7);
-        aChessBoard[7][7] = bRook2;
+        Piece bRook1 = new Rook(false, 2, 9);
+        aChessBoard[2][9] = bRook1;
+        Piece bKnight1 = new Knight(false, 3, 9);
+        aChessBoard[3][9] = bKnight1;
+        Piece bBishop1 = new Bishop(false, 4, 9);
+        aChessBoard[4][9] = bBishop1;
+        Piece bQueen = new Queen(false, 5, 9);
+        aChessBoard[5][9]= bQueen;
+        bKing = new King(false, 6, 9);
+        aChessBoard[6][9] = bKing;
+        Piece bBishop2 = new Bishop(false, 7, 9);
+        aChessBoard[7][9] = bBishop2;
+        Piece bKnight2 = new Knight(false, 8, 9);
+        aChessBoard[8][9] = bKnight2;
+        Piece bRook2 = new Rook(false, 9, 9);
+        aChessBoard[9][9] = bRook2;
         blacksPieces.add(bRook1);
         blacksPieces.add(bKnight1);
         blacksPieces.add(bBishop1);
@@ -109,9 +109,15 @@ public class ChessModel {
         }
     }
 
-    public boolean[][] getSelectedLegalMoves() {
+    public boolean[][] getVisibleSelectedLegalMoves() {
         if (selectedPiece != null) {
-            return selectedPiece.getLegalMoves();
+            boolean[][] aVisibleLegalMoves = new boolean[8][8];
+            for (int j = 2; j < 10; j++) {
+                for (int i = 2; i < 10; i++) {
+                    aVisibleLegalMoves[i-2][j-2] = selectedPiece.getLegalMoves()[i][j];
+                }
+            }
+            return aVisibleLegalMoves;
         }
         return new boolean[8][8];
     }
@@ -149,19 +155,13 @@ public class ChessModel {
     }
 
     private void scanCheck() {
-        Piece[][] paddedChessBoard = new Piece[12][12];
-        for (int j = 0; j < 8; j++) {
-            for (int i = 0; i < 8; i++) {
-                paddedChessBoard[i+2][j+2] = aChessBoard[i][j];
-            }
-        }
         if (whiteTurn) {
-            if (bKing.isInCheck(paddedChessBoard)) {
+            if (bKing.isInCheck(aChessBoard)) {
                 System.out.println("Black King in Check");
                 bCheck = true;
             }
         } else {
-            if (wKing.isInCheck(paddedChessBoard)) {
+            if (wKing.isInCheck(aChessBoard)) {
                 System.out.println("White King in Check");
                 wCheck = true;
             }
@@ -173,8 +173,8 @@ public class ChessModel {
             for (Piece piece : whitesPieces) {
                 piece.generatePossibleMoves(aChessBoard);
                 boolean[][] legalMoves = piece.getLegalMoves();
-                for (int j = 0; j < 8; j++) {
-                    for (int i = 0; i < 8; i++) {
+                for (int j = 2; j < 10; j++) {
+                    for (int i = 2; i < 10; i++) {
                         if (legalMoves[i][j]) {
                             return false;
                         }
@@ -185,8 +185,8 @@ public class ChessModel {
             for (Piece piece : blacksPieces) {
                 piece.generatePossibleMoves(aChessBoard);
                 boolean[][] legalMoves = piece.getLegalMoves();
-                for (int j = 0; j < 8; j++) {
-                    for (int i = 0; i < 8; i++) {
+                for (int j = 2; j < 10; j++) {
+                    for (int i = 2; i < 10; i++) {
                         if (legalMoves[i][j]) {
                             return false;
                         }

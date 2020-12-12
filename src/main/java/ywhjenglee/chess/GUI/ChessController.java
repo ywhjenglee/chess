@@ -24,13 +24,13 @@ public class ChessController extends Rectangle {
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
                 if (aBoardGUI.getChessModel().getSelectedPiece() == null) {
-                    if (aBoardGUI.getChessModel().getPiece(x, y) != null) {
-                        aBoardGUI.getChessModel().selectPiece(aBoardGUI.getChessModel().getPiece(x, y));
+                    if (aBoardGUI.getChessModel().getPiece(x+2, y+2) != null) {
+                        aBoardGUI.getChessModel().selectPiece(aBoardGUI.getChessModel().getPiece(x+2, y+2));
                         aBoardGUI.refreshMoves();
                     }
                 } else {
-                    if (aBoardGUI.getChessModel().getSelectedLegalMoves()[x][y]) {
-                        aBoardGUI.getChessModel().movePiece(x, y);
+                    if (aBoardGUI.getChessModel().getVisibleSelectedLegalMoves()[x][y]) {
+                        aBoardGUI.getChessModel().movePiece(x+2, y+2);
                         aBoardGUI.refreshView();
                     }
                 }
