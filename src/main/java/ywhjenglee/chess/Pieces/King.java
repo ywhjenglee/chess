@@ -17,8 +17,182 @@ public class King extends Piece {
         aLegalMoves[x+1][y-1] = 1;
         aLegalMoves[x-1][y-1] = 1;
         removeAllyOccupied(pChessBoard);
+        generateCastling(pChessBoard);
         removeKingInCheck(pChessBoard);
         aLegalMoves[x][y] = 1;
+    }
+
+    private void generateCastling(Piece[][] pChessBoard) {
+        if (!this.hasMoved) {
+            for (int i = 2; i < 10; i++) {
+                CastlingLoop:
+                if (aColor) {
+                    boolean[][] checkUnAttacked = new boolean[12][12];
+                    if (pChessBoard[i][2] != null && pChessBoard[i][2].getColor() == aColor &&
+                    pChessBoard[i][2].getClass() == Rook.class) {
+                        Rook rook = (Rook) pChessBoard[i][2];
+                        if (rook.hasMoved) {
+                            break;
+                        }
+                        if (rook.getSide()) {
+                            if (i <= 5) {
+                                for (int m = 1; i+m <= 5; m++) {
+                                    if (pChessBoard[i+m][2] != null && pChessBoard[i+m][2] != this) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            } else {
+                                for (int m = 1; i-m > 5; m++) {
+                                    if (pChessBoard[i-m][2] != null) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            }
+                            checkUnAttacked[x][2] = true;
+                            if (x <= 4) {
+                                for (int m = 1; x+m <= 4; m++) {
+                                    if (pChessBoard[x+m][2] != null) {
+                                        break CastlingLoop;
+                                    }
+                                    checkUnAttacked[x+m][2] = true;
+                                }
+                            } else {
+                                for (int m = 1; x-m > 4; m++) {
+                                    if (pChessBoard[x-m][2] != null && pChessBoard[x-m][2] != rook) {
+                                        break CastlingLoop;
+                                    }
+                                    checkUnAttacked[x-m][2] = true;
+                                }
+                            }
+                            if (castlingCheckUnAttacked(checkUnAttacked, pChessBoard)) {
+                                aLegalMoves[i][2] = 5;
+                            }
+                        } else {
+                            if (i <= 7) {
+                                for (int m = 1; i+m <= 7; m++) {
+                                    if (pChessBoard[i+m][2] != null) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            } else {
+                                for (int m = 1; i-m > 7; m++) {
+                                    if (pChessBoard[i-m][2] != null && pChessBoard[i-m][2] != this) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            }
+                            checkUnAttacked[x][2] = true;
+                            for (int m = 1; x+m <= 8; m++) {
+                                if (pChessBoard[x+m][2] != null && pChessBoard[x+m][2] != rook) {
+                                    break CastlingLoop;
+                                }
+                                checkUnAttacked[x+m][2] = true;
+                            }
+                            if (castlingCheckUnAttacked(checkUnAttacked, pChessBoard)) {
+                                aLegalMoves[i][2] = 6;
+                            }
+                        }
+                    }
+                } else {
+                    boolean[][] checkUnAttacked = new boolean[12][12];
+                    if (pChessBoard[i][9] != null && pChessBoard[i][9].getColor() == aColor &&
+                    pChessBoard[i][9].getClass() == Rook.class) {
+                        Rook rook = (Rook) pChessBoard[i][9];
+                        if (rook.hasMoved) {
+                            break;
+                        }
+                        if (rook.getSide()) {
+                            if (i <= 5) {
+                                for (int m = 1; i+m <= 5; m++) {
+                                    if (pChessBoard[i+m][9] != null && pChessBoard[i+m][9] != this) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            } else {
+                                for (int m = 1; i-m > 5; m++) {
+                                    if (pChessBoard[i-m][9] != null) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            }
+                            checkUnAttacked[x][9] = true;
+                            if (x <= 4) {
+                                for (int m = 1; x+m <= 4; m++) {
+                                    if (pChessBoard[x+m][9] != null) {
+                                        break CastlingLoop;
+                                    }
+                                    checkUnAttacked[x+m][9] = true;
+                                }
+                            } else {
+                                for (int m = 1; x-m > 4; m++) {
+                                    if (pChessBoard[x-m][9] != null && pChessBoard[x-m][9] != rook) {
+                                        break CastlingLoop;
+                                    }
+                                    checkUnAttacked[x-m][9] = true;
+                                }
+                            }
+                            if (castlingCheckUnAttacked(checkUnAttacked, pChessBoard)) {
+                                aLegalMoves[i][9] = 5;
+                            }
+                        } else {
+                            if (i <= 7) {
+                                for (int m = 1; i+m <= 7; m++) {
+                                    if (pChessBoard[i+m][9] != null) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            } else {
+                                for (int m = 1; i-m > 7; m++) {
+                                    if (pChessBoard[i-m][9] != null && pChessBoard[i-m][9] != this) {
+                                        break CastlingLoop;
+                                    }
+                                }
+                            }
+                            checkUnAttacked[x][9] = true;
+                            for (int m = 1; x+m <= 8; m++) {
+                                if (pChessBoard[x+m][9] != null && pChessBoard[x+m][9] != rook) {
+                                    break CastlingLoop;
+                                }
+                                checkUnAttacked[x+m][9] = true;
+                            }
+                            if (castlingCheckUnAttacked(checkUnAttacked, pChessBoard)) {
+                                aLegalMoves[i][9] = 6;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean castlingCheckUnAttacked(boolean[][] pCheckUnAttacked, Piece[][] pChessBoard) {
+        for (int j = 2; j < 10; j++) {
+            for (int i = 2; i < 10; i++) {
+                if (pCheckUnAttacked[i][j]) {
+                    Piece[][] tempBoard = new Piece[12][12];
+                    for (int n = 2; n < 10; n++) {
+                        for (int m = 2; m < 10; m++) {
+                            tempBoard[m][n] = pChessBoard[m][n];
+                        }
+                    }
+                    tempBoard[i][j] = this;
+                    tempBoard[x][y] = null;
+                    int tempX = this.getX();
+                    int tempY = this.getY();
+                    this.setPosition(i, j);
+                    if (this.isInCheck(tempBoard)) {
+                        tempBoard[i][j] = null;
+                        tempBoard[x][y] = this;
+                        this.setPosition(tempX, tempY);
+                        return false;
+                    }
+                    tempBoard[i][j] = null;
+                    tempBoard[x][y] = this;
+                    this.setPosition(tempX, tempY);
+                }
+            }
+        }
+        return true;
     }
 
     public boolean isInCheck(Piece[][] pChessBoard) {

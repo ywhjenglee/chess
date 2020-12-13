@@ -9,11 +9,13 @@ public abstract class Piece {
     protected boolean hasMoved;
     protected int[][] aLegalMoves;
     /*
-    0 = empty
-    1 = open
+    0 = cantMove
+    1 = canMoveTo
     2 = capture
-    3 = pawndouble
-    4 = enpassantcapture
+    3 = pawnDouble
+    4 = enPassantCapture
+    5 = castleQueen
+    6 = castleKing
     */
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
@@ -75,7 +77,7 @@ public abstract class Piece {
             kingPiece = (King) this;
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (aLegalMoves[i][j] > 0) {
+                    if (aLegalMoves[i][j] > 0 && aLegalMoves[i][j] < 5) {
                         Piece[][] tempBoard = new Piece[12][12];
                         for (int n = 2; n < 10; n++) {
                             for (int m = 2; m < 10; m++) {

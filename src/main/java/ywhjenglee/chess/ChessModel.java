@@ -52,7 +52,7 @@ public class ChessModel {
             whitesPieces.add(wPawn);
             blacksPieces.add(bPawn);
         }
-        Piece wRook1 = new Rook(true, 2, 2);
+        Piece wRook1 = new Rook(true, 2, 2, true);
         aChessBoard[2][2] = wRook1;
         Piece wKnight1 = new Knight(true, 3, 2);
         aChessBoard[3][2] = wKnight1;
@@ -66,7 +66,7 @@ public class ChessModel {
         aChessBoard[7][2] = wBishop2;
         Piece wKnight2 = new Knight(true, 8, 2);
         aChessBoard[8][2] = wKnight2;
-        Piece wRook2 = new Rook(true, 9, 2);
+        Piece wRook2 = new Rook(true, 9, 2, false);
         aChessBoard[9][2] = wRook2;
         whitesPieces.add(wRook1);
         whitesPieces.add(wKnight1);
@@ -77,7 +77,7 @@ public class ChessModel {
         whitesPieces.add(wKnight2);
         whitesPieces.add(wRook2);
 
-        Piece bRook1 = new Rook(false, 2, 9);
+        Piece bRook1 = new Rook(false, 2, 9, true);
         aChessBoard[2][9] = bRook1;
         Piece bKnight1 = new Knight(false, 3, 9);
         aChessBoard[3][9] = bKnight1;
@@ -91,7 +91,7 @@ public class ChessModel {
         aChessBoard[7][9] = bBishop2;
         Piece bKnight2 = new Knight(false, 8, 9);
         aChessBoard[8][9] = bKnight2;
-        Piece bRook2 = new Rook(false, 9, 9);
+        Piece bRook2 = new Rook(false, 9, 9, false);
         aChessBoard[9][9] = bRook2;
         blacksPieces.add(bRook1);
         blacksPieces.add(bKnight1);

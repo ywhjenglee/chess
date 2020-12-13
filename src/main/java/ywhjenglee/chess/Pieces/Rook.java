@@ -1,9 +1,20 @@
 package ywhjenglee.chess.Pieces;
 
 public class Rook extends Piece {
+
+    private boolean aSide;
+    /*
+    true = queenSide/left
+    false = kingSide/right
+    */
     
-    public Rook(boolean pColor, int pX, int pY) {
+    public Rook(boolean pColor, int pX, int pY, boolean pSide) {
         super("Rook", pColor, pX, pY);
+        aSide = pSide;
+    }
+
+    public boolean getSide() {
+        return aSide;
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {
