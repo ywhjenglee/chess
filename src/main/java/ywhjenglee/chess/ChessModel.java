@@ -157,6 +157,48 @@ public class ChessModel {
                     } else if (legalMoves[pX][pY] == 3) {
                         pawnEnPassant = (Pawn) selectedPiece;
                         pawnEnPassant.setEnPassant(true);
+                    } else if (legalMoves[pX][pY] == 5 || legalMoves[pX][pY] == 6) {
+                        if (legalMoves[pX][pY] == 5) {
+                            if (whiteTurn) {
+                                aChessBoard[pX][pY].setPosition(5, 2);
+                                aChessBoard[pX][pY].setHasMoved();
+                                selectedPiece.setPosition(4, 2);
+                                selectedPiece.setHasMoved();
+                                aChessBoard[4][2] = selectedPiece;
+                                aChessBoard[5][2] = aChessBoard[pX][pY];
+                            } else {
+                                aChessBoard[pX][pY].setPosition(5, 9);
+                                aChessBoard[pX][pY].setHasMoved();
+                                selectedPiece.setPosition(4, 9);
+                                selectedPiece.setHasMoved();
+                                aChessBoard[4][9] = selectedPiece;
+                                aChessBoard[5][9] = aChessBoard[pX][pY];
+                            }
+                        } else {
+                            if (whiteTurn) {
+                                aChessBoard[pX][pY].setPosition(7, 2);
+                                aChessBoard[pX][pY].setHasMoved();
+                                selectedPiece.setPosition(8, 2);
+                                selectedPiece.setHasMoved();
+                                aChessBoard[7][2] = selectedPiece;
+                                aChessBoard[8][2] = aChessBoard[pX][pY];
+                            } else {
+                                aChessBoard[pX][pY].setPosition(7, 9);
+                                aChessBoard[pX][pY].setHasMoved();
+                                selectedPiece.setPosition(8, 9);
+                                selectedPiece.setHasMoved();
+                                aChessBoard[7][9] = selectedPiece;
+                                aChessBoard[8][9] = aChessBoard[pX][pY];
+                            }
+                        }
+                        selectedPiece = null;
+                        wCheck = false;
+                        bCheck = false;
+                        whiteTurn = !whiteTurn;
+                        if (!whiteTurn) {
+                            turnCount++;
+                        }
+                        return;
                     }
                 }
                 aChessBoard[selectedPiece.getX()][selectedPiece.getY()] = null;
@@ -164,7 +206,6 @@ public class ChessModel {
                 selectedPiece.setPosition(pX, pY);
                 selectedPiece.setHasMoved();
                 selectedPiece = null;
-
                 wCheck = false;
                 bCheck = false;
                 scanCheck();
