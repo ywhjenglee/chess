@@ -8,16 +8,16 @@ public class Knight extends Piece {
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {
         super.generatePossibleMoves(pChessBoard);
-        aLegalMoves[x+1][y+2] = true;
-        aLegalMoves[x-1][y+2] = true;
-        aLegalMoves[x+1][y-2] = true;
-        aLegalMoves[x-1][y-2] = true;
-        aLegalMoves[x+2][y+1] = true;
-        aLegalMoves[x-2][y+1] = true;
-        aLegalMoves[x+2][y-1] = true;
-        aLegalMoves[x-2][y-1] = true;
+        aLegalMoves[x+1][y+2] = 1;
+        aLegalMoves[x-1][y+2] = 1;
+        aLegalMoves[x+1][y-2] = 1;
+        aLegalMoves[x-1][y-2] = 1;
+        aLegalMoves[x+2][y+1] = 1;
+        aLegalMoves[x-2][y+1] = 1;
+        aLegalMoves[x+2][y-1] = 1;
+        aLegalMoves[x-2][y-1] = 1;
         removeAllyOccupied(pChessBoard);
         removeKingInCheck(pChessBoard);
-        aLegalMoves[x][y] = true;
+        aLegalMoves[x][y] = 1;
     }
 }

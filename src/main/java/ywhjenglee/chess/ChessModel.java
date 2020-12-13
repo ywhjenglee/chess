@@ -28,6 +28,7 @@ public class ChessModel {
     private King bKing;
     private boolean wCheck = false;
     private boolean bCheck = false;
+    private Pawn pawnEnPassant;
 
     public ChessModel() {
         aChessBoard = new Piece[12][12];
@@ -109,25 +110,43 @@ public class ChessModel {
         }
     }
 
-    public boolean[][] getVisibleSelectedLegalMoves() {
+    public int[][] getVisibleSelectedLegalMoves() {
         if (selectedPiece != null) {
-            boolean[][] aVisibleLegalMoves = new boolean[8][8];
+            int[][] visibleLegalMoves = new int[8][8];
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    aVisibleLegalMoves[i-2][j-2] = selectedPiece.getLegalMoves()[i][j];
+                    visibleLegalMoves[i-2][j-2] = selectedPiece.getLegalMoves()[i][j];
                 }
             }
-            return aVisibleLegalMoves;
+            return visibleLegalMoves;
         }
-        return new boolean[8][8];
+        return new int[8][8];
     }
 
     public void movePiece(int pX, int pY) {
         if (selectedPiece != null) {
-            boolean[][] legalMoves = selectedPiece.getLegalMoves();
-            if (legalMoves[pX][pY]) {
-                if (selectedPiece.getX() != pX || selectedPiece.getY() != pY) {
-                    if (aChessBoard[pX][pY] != null) {
+            int[][] legalMoves = selectedPiece.getLegalMoves();
+            if (legalMoves[pX][pY] > 0) {
+                if (selectedPiece.getX() == pX && selectedPiece.getY() == pY){
+                    selectedPiece = null;
+                    return;
+                } else if (legalMoves[pX][pY] == 4) {
+                    if (whiteTurn) {
+                        whitesCaptures.add(pawnEnPassant);
+                        blacksPieces.remove(pawnEnPassant);
+                    } else {
+                        blacksCaptures.add(pawnEnPassant);
+                        whitesPieces.remove(pawnEnPassant);
+                    }
+                    pawnEnPassant.setEnPassant(false);
+                    aChessBoard[pawnEnPassant.getX()][pawnEnPassant.getY()] = null;
+                    pawnEnPassant = null;
+                } else {
+                    if (pawnEnPassant != null) {
+                        pawnEnPassant.setEnPassant(false);
+                        pawnEnPassant = null;
+                    }
+                    if (legalMoves[pX][pY] == 2) {
                         if (whiteTurn) {
                             whitesCaptures.add(aChessBoard[pX][pY]);
                             blacksPieces.remove(aChessBoard[pX][pY]);
@@ -135,21 +154,27 @@ public class ChessModel {
                             blacksCaptures.add(aChessBoard[pX][pY]);
                             whitesPieces.remove(aChessBoard[pX][pY]);
                         }
+                    } else if (legalMoves[pX][pY] == 3) {
+                        pawnEnPassant = (Pawn) selectedPiece;
+                        pawnEnPassant.setEnPassant(true);
                     }
-                    aChessBoard[selectedPiece.getX()][selectedPiece.getY()] = null;
-                    aChessBoard[pX][pY] = selectedPiece;
-                    selectedPiece.setPosition(pX, pY);
-                    selectedPiece.setHasMoved();
-                    wCheck = false;
-                    bCheck = false;
-                    scanCheck();
-                    if (scanGameOver()) {
-                        getResult();
-                    }
-                    whiteTurn = !whiteTurn;
+                }
+                aChessBoard[selectedPiece.getX()][selectedPiece.getY()] = null;
+                aChessBoard[pX][pY] = selectedPiece;
+                selectedPiece.setPosition(pX, pY);
+                selectedPiece.setHasMoved();
+                selectedPiece = null;
+
+                wCheck = false;
+                bCheck = false;
+                scanCheck();
+                if (scanGameOver()) {
+                    getResult();
+                }
+                whiteTurn = !whiteTurn;
+                if (!whiteTurn) {
                     turnCount++;
                 }
-                selectedPiece = null;
             }
         }
     }
@@ -172,10 +197,10 @@ public class ChessModel {
         if (whiteTurn) {
             for (Piece piece : whitesPieces) {
                 piece.generatePossibleMoves(aChessBoard);
-                boolean[][] legalMoves = piece.getLegalMoves();
+                int[][] legalMoves = piece.getLegalMoves();
                 for (int j = 2; j < 10; j++) {
                     for (int i = 2; i < 10; i++) {
-                        if (legalMoves[i][j]) {
+                        if (legalMoves[i][j] == 1) {
                             return false;
                         }
                     }
@@ -184,10 +209,10 @@ public class ChessModel {
         } else {
             for (Piece piece : blacksPieces) {
                 piece.generatePossibleMoves(aChessBoard);
-                boolean[][] legalMoves = piece.getLegalMoves();
+                int[][] legalMoves = piece.getLegalMoves();
                 for (int j = 2; j < 10; j++) {
                     for (int i = 2; i < 10; i++) {
-                        if (legalMoves[i][j]) {
+                        if (legalMoves[i][j] == 1) {
                             return false;
                         }
                     }

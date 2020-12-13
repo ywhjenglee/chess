@@ -125,11 +125,12 @@ public class BoardGUI {
     public void refreshMoves() {
         aMovesPane.getChildren().clear();
         if (aChessModel.getSelectedPiece() != null) {
-            boolean[][] legalMoves = aChessModel.getVisibleSelectedLegalMoves();
+            int[][] legalMoves = aChessModel.getVisibleSelectedLegalMoves();
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
-                    if(legalMoves[i][j]) {
-                        Circle aLegalMove = new Circle(5);
+                    if(legalMoves[i][j] > 0) {
+                        Circle aLegalMove = new Circle(8);
+                        aLegalMove.setFill(Color.rgb(128, 128, 128, 0.5));
                         aMovesPane.add(aLegalMove, i, 7-j);
                     }
                 }

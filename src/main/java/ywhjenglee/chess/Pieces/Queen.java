@@ -15,40 +15,40 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (x+i < 10 && !E) {
                 if (pChessBoard[x+i][y] == null) {
-                    aLegalMoves[x+i][y] = true;
+                    aLegalMoves[x+i][y] = 1;
                 } else {
                     if (pChessBoard[x+i][y].getColor() != aColor) {
-                        aLegalMoves[x+i][y] = true;
+                        aLegalMoves[x+i][y] = 2;
                     }
                     E = true;
                 }
             }
             if (x-i > 1 && !W) {
                 if (pChessBoard[x-i][y] == null) {
-                    aLegalMoves[x-i][y] = true;
+                    aLegalMoves[x-i][y] = 1;
                 } else {
                     if (pChessBoard[x-i][y].getColor() != aColor) {
-                        aLegalMoves[x-i][y] = true;
+                        aLegalMoves[x-i][y] = 2;
                     }
                     W = true;
                 }
             }
             if (y+i < 10 && !N) {
                 if (pChessBoard[x][y+i] == null) {
-                    aLegalMoves[x][y+i] = true;
+                    aLegalMoves[x][y+i] = 1;
                 } else {
                     if (pChessBoard[x][y+i].getColor() != aColor) {
-                        aLegalMoves[x][y+i] = true;
+                        aLegalMoves[x][y+i] = 2;
                     }
                     N = true;
                 }
             }
             if (y-i > 1 && !S) {
                 if (pChessBoard[x][y-i] == null) {
-                    aLegalMoves[x][y-i] = true;
+                    aLegalMoves[x][y-i] = 1;
                 } else {
                     if (pChessBoard[x][y-i].getColor() != aColor) {
-                        aLegalMoves[x][y-i] = true;
+                        aLegalMoves[x][y-i] = 2;
                     }
                     S = true;
                 }
@@ -61,46 +61,46 @@ public class Queen extends Piece {
         for (int i = 1; i < 8; i++) {
             if (x+i < 10 && y+i < 10 && !NE) {
                 if (pChessBoard[x+i][y+i] == null) {
-                    aLegalMoves[x+i][y+i] = true;
+                    aLegalMoves[x+i][y+i] = 1;
                 } else {
                     if (pChessBoard[x+i][y+i].getColor() != aColor) {
-                        aLegalMoves[x+i][y+i] = true;
+                        aLegalMoves[x+i][y+i] = 2;
                     }
                     NE = true;
                 }
             }
             if (x-i > 1 && y+i < 10 && !NW) {
                 if (pChessBoard[x-i][y+i] == null) {
-                    aLegalMoves[x-i][y+i] = true;
+                    aLegalMoves[x-i][y+i] = 1;
                 } else {
                     if (pChessBoard[x-i][y+i].getColor() != aColor) {
-                        aLegalMoves[x-i][y+i] = true;
+                        aLegalMoves[x-i][y+i] = 2;
                     }
                     NW = true;
                 }
             }
             if (x+i < 10 && y-i > 1 && !SE) {
                 if (pChessBoard[x+i][y-i] == null) {
-                    aLegalMoves[x+i][y-i] = true;
+                    aLegalMoves[x+i][y-i] = 1;
                 } else {
                     if (pChessBoard[x+i][y-i].getColor() != aColor) {
-                        aLegalMoves[x+i][y-i] = true;
+                        aLegalMoves[x+i][y-i] = 2;
                     }
                     SE = true;
                 }
             }
             if (x-i > 1 && y-i > 1 && !SW) {
                 if (pChessBoard[x-i][y-i] == null) {
-                    aLegalMoves[x-i][y-i] = true;
+                    aLegalMoves[x-i][y-i] = 1;
                 } else {
                     if (pChessBoard[x-i][y-i].getColor() != aColor) {
-                        aLegalMoves[x-i][y-i] = true;
+                        aLegalMoves[x-i][y-i] = 2;
                     }
                     SW = true;
                 }
             }
         }
         removeKingInCheck(pChessBoard);
-        aLegalMoves[x][y] = true;
+        aLegalMoves[x][y] = 1;
     }
 }

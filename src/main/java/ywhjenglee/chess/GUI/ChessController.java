@@ -1,6 +1,7 @@
 package ywhjenglee.chess.GUI;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
 
 import javafx.scene.shape.Rectangle;
@@ -16,7 +17,7 @@ public class ChessController extends Rectangle {
         aBoardGUI = pBoardGUI;
         setWidth(75);
         setHeight(75);
-        setOpacity(0);
+        setFill(Color.TRANSPARENT);
         createHandle();
     }
 
@@ -29,7 +30,7 @@ public class ChessController extends Rectangle {
                         aBoardGUI.refreshMoves();
                     }
                 } else {
-                    if (aBoardGUI.getChessModel().getVisibleSelectedLegalMoves()[x][y]) {
+                    if (aBoardGUI.getChessModel().getVisibleSelectedLegalMoves()[x][y] > 0) {
                         aBoardGUI.getChessModel().movePiece(x+2, y+2);
                         aBoardGUI.refreshView();
                     }

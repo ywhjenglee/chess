@@ -7,7 +7,14 @@ public abstract class Piece {
     protected int x;
     protected int y;
     protected boolean hasMoved;
-    protected boolean[][] aLegalMoves;
+    protected int[][] aLegalMoves;
+    /*
+    0 = empty
+    1 = open
+    2 = capture
+    3 = pawndouble
+    4 = enpassantcapture
+    */
 
     protected Piece(String pName, boolean pColor, int pX, int pY) {
         aName = pName;
@@ -43,10 +50,10 @@ public abstract class Piece {
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {
-        aLegalMoves = new boolean[12][12];
+        aLegalMoves = new int[12][12];
     }
 
-    public boolean[][] getLegalMoves() {
+    public int[][] getLegalMoves() {
         return aLegalMoves;
     }
 
@@ -55,7 +62,7 @@ public abstract class Piece {
             for (int i = 2; i < 10; i++) {
                 if (pChessBoard[i][j] != null) {
                     if (pChessBoard[i][j].getColor() == aColor) {
-                        aLegalMoves[i][j] = false;
+                        aLegalMoves[i][j] = 0;
                     }
                 }
             }
@@ -68,7 +75,7 @@ public abstract class Piece {
             kingPiece = (King) this;
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (aLegalMoves[i][j]) {
+                    if (aLegalMoves[i][j] > 0) {
                         Piece[][] tempBoard = new Piece[12][12];
                         for (int n = 2; n < 10; n++) {
                             for (int m = 2; m < 10; m++) {
@@ -81,7 +88,7 @@ public abstract class Piece {
                         int tempY = kingPiece.getY();
                         kingPiece.setPosition(i, j);
                         if (kingPiece.isInCheck(tempBoard)) {
-                            aLegalMoves[i][j] = false;
+                            aLegalMoves[i][j] = 0;
                         }
                         tempBoard[i][j] = null;
                         tempBoard[x][y] = this;
@@ -102,7 +109,7 @@ public abstract class Piece {
             }
             for (int j = 2; j < 10; j++) {
                 for (int i = 2; i < 10; i++) {
-                    if (aLegalMoves[i][j]) {
+                    if (aLegalMoves[i][j] > 0) {
                         Piece[][] tempBoard = new Piece[12][12];
                         for (int n = 2; n < 10; n++) {
                             for (int m = 2; m < 10; m++) {
@@ -112,7 +119,7 @@ public abstract class Piece {
                         tempBoard[i][j] = this;
                         tempBoard[x][y] = null;
                         if (kingPiece.isInCheck(tempBoard)) {
-                            aLegalMoves[i][j] = false;
+                            aLegalMoves[i][j] = 0;
                         }
                         tempBoard[i][j] = null;
                         tempBoard[x][y] = this;
