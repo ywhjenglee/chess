@@ -31,12 +31,8 @@ public class ProfileGUI {
         aTakenPiecesPane = new HBox();
         aTakenPiecesPane.setPadding(new Insets(0,0,0,0));
         aTakenPiecesPane.setAlignment(Pos.CENTER);
-
-        createTakenPiecesPane();
+        
         aProfile.getChildren().addAll(aProfileText, aTakenPiecesPane);
-    }
-
-    private void createTakenPiecesPane() {
     }
 
     public void refreshTakenPieces() {

@@ -44,6 +44,8 @@ public class ChessGUI extends Application {
 	
 		// Set scene and show
 		Scene aScene = new Scene(aMainPane);
+		pStage.setMinWidth(1000);
+		pStage.setMinHeight(800);
 		pStage.setScene(aScene);
 		pStage.show();
 	}
