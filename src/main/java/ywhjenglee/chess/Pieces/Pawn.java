@@ -82,6 +82,6 @@ public class Pawn extends Piece {
             }
         }
         removeKingInCheck(pChessBoard);
-        aLegalMoves[x][y] = 1;
+        aLegalMoves[x][y] = 7;
     }
 }

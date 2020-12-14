@@ -15,6 +15,7 @@ public abstract class Piece {
     4 = enPassantCapture
     5 = castleQueen
     6 = castleKing
+    7 = initialPosition
     */
 
     protected Piece(boolean pColor, int pX, int pY) {

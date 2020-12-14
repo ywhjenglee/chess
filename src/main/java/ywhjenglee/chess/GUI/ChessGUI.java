@@ -4,13 +4,20 @@ import ywhjenglee.chess.ChessModel;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.Priority;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
 
 public class ChessGUI extends Application {
 
@@ -44,6 +51,7 @@ public class ChessGUI extends Application {
 	
 		// Set scene and show
 		Scene aScene = new Scene(aMainPane);
+		pStage.setTitle("ywhjenglee Chess Game");
 		pStage.setMinWidth(1000);
 		pStage.setMinHeight(800);
 		pStage.setScene(aScene);
@@ -116,5 +124,38 @@ public class ChessGUI extends Application {
 		} else {
 			return aBlackProfileGUI;
 		}
+	}
+
+	public void showGameOver() {
+		Stage gameOverWindow = new Stage();
+		gameOverWindow.initModality(Modality.APPLICATION_MODAL);
+		gameOverWindow.setTitle("Game Over");
+		VBox gameOverPane = new VBox();
+		gameOverPane.setAlignment(Pos.CENTER);
+		Text gameOverText = new Text(aChessModel.getResult());
+		Button newGameButton = new Button("New Game");
+		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent pEvent) {
+				createNewGame();
+				gameOverWindow.close();
+			}
+		});
+		gameOverPane.getChildren().addAll(gameOverText, newGameButton);
+		Scene aScene = new Scene(gameOverPane);
+		gameOverWindow.setScene(aScene);
+		gameOverWindow.showAndWait();
+	}
+
+	public void createNewGame() {
+		aChessModel = new ChessModel();
+
+		aGamePane = new GridPane();
+		aMenuPane = new GridPane();
+
+		setupGamePane();
+
+		aMainPane.add(aGamePane, 0, 0);
+		aMainPane.add(aMenuPane, 1, 0);
 	}
 }

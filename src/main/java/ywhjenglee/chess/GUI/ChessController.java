@@ -39,6 +39,9 @@ public class ChessController extends HBox {
                         aChessGUI.getProfileGUI(true).refreshTakenPieces();
                         aChessGUI.getProfileGUI(false).refreshTakenPieces();
                     }
+                    if (aChessGUI.getChessModel().getResult() != "Game Ongoing") {
+                        aChessGUI.showGameOver();
+                    }
                 }
             }
         });

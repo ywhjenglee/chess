@@ -109,6 +109,6 @@ public class Queen extends Piece {
             }
         }
         removeKingInCheck(pChessBoard);
-        aLegalMoves[x][y] = 1;
+        aLegalMoves[x][y] = 7;
     }
 }

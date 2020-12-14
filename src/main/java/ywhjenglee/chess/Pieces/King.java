@@ -74,7 +74,7 @@ public class King extends Piece {
         }
         generateCastling(pChessBoard);
         removeKingInCheck(pChessBoard);
-        aLegalMoves[x][y] = 1;
+        aLegalMoves[x][y] = 7;
     }
 
     private void generateCastling(Piece[][] pChessBoard) {

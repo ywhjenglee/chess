@@ -210,13 +210,13 @@ public class ChessModel {
                 selectedPiece = null;
                 wCheck = false;
                 bCheck = false;
-                scanCheck();
-                if (scanGameOver()) {
-                    getResult();
-                }
                 whiteTurn = !whiteTurn;
                 if (!whiteTurn) {
                     turnCount++;
+                }
+                scanCheck();
+                if (scanGameOver()) {
+                    findResult();
                 }
             }
         }
@@ -224,14 +224,14 @@ public class ChessModel {
 
     private void scanCheck() {
         if (whiteTurn) {
-            if (bKing.isInCheck(aChessBoard)) {
-                System.out.println("Black King in Check");
-                bCheck = true;
-            }
-        } else {
             if (wKing.isInCheck(aChessBoard)) {
                 System.out.println("White King in Check");
                 wCheck = true;
+            }
+        } else {
+            if (bKing.isInCheck(aChessBoard)) {
+                System.out.println("Black King in Check");
+                bCheck = true;
             }
         }
     }
@@ -243,7 +243,7 @@ public class ChessModel {
                 int[][] legalMoves = piece.getLegalMoves();
                 for (int j = 2; j < 10; j++) {
                     for (int i = 2; i < 10; i++) {
-                        if (legalMoves[i][j] == 1) {
+                        if (legalMoves[i][j] > 0 && legalMoves[i][j] < 7) {
                             return false;
                         }
                     }
@@ -255,7 +255,7 @@ public class ChessModel {
                 int[][] legalMoves = piece.getLegalMoves();
                 for (int j = 2; j < 10; j++) {
                     for (int i = 2; i < 10; i++) {
-                        if (legalMoves[i][j] == 1) {
+                        if (legalMoves[i][j] > 0 && legalMoves[i][j] < 7) {
                             return false;
                         }
                     }
@@ -265,7 +265,7 @@ public class ChessModel {
         return true;
     }
 
-    private void getResult() {
+    private void findResult() {
         if (wCheck) {
             aResult = "Black Wins";
         } else if (bCheck) {
@@ -273,6 +273,10 @@ public class ChessModel {
         } else {
             aResult = "Stalemate";
         }
+    }
+
+    public String getResult() {
+        return aResult;
     }
 
     public int getTurnCount() {
