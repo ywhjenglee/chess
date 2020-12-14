@@ -3,7 +3,15 @@ package ywhjenglee.chess.Pieces;
 public class Bishop extends Piece {
 
     public Bishop(boolean pColor, int pX, int pY) {
-        super("Bishop", pColor, pX, pY);
+        super(pColor, pX, pY);
+    }
+
+    public String getName() {
+        if (aColor) {
+            return "♗";
+        } else {
+            return "♝";
+        }
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {

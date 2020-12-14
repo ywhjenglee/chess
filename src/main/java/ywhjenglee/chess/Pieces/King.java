@@ -3,20 +3,75 @@ package ywhjenglee.chess.Pieces;
 public class King extends Piece {
     
     public King(boolean pColor, int x, int y) {
-        super("King", pColor, x, y);
+        super(pColor, x, y);
+    }
+
+    public String getName() {
+        if (aColor) {
+            return "♔";
+        } else {
+            return "♚";
+        }
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {
         super.generatePossibleMoves(pChessBoard);
-        aLegalMoves[x+1][y] = 1;
-        aLegalMoves[x-1][y] = 1;
-        aLegalMoves[x][y+1] = 1;
-        aLegalMoves[x][y-1] = 1;
-        aLegalMoves[x+1][y+1] = 1;
-        aLegalMoves[x-1][y+1] = 1;
-        aLegalMoves[x+1][y-1] = 1;
-        aLegalMoves[x-1][y-1] = 1;
-        removeAllyOccupied(pChessBoard);
+        if (pChessBoard[x+1][y] == null) {
+            aLegalMoves[x+1][y] = 1;
+        } else {
+            if (pChessBoard[x+1][y].getColor() != aColor) {
+                aLegalMoves[x+1][y] = 2;
+            }
+        }
+        if (pChessBoard[x-1][y] == null) {
+            aLegalMoves[x-1][y] = 1;
+        } else {
+            if (pChessBoard[x-1][y].getColor() != aColor) {
+                aLegalMoves[x-1][y] = 2;
+            }
+        }
+        if (pChessBoard[x][y+1] == null) {
+            aLegalMoves[x][y+1] = 1;
+        } else {
+            if (pChessBoard[x][y+1].getColor() != aColor) {
+                aLegalMoves[x][y+1] = 2;
+            }
+        }
+        if (pChessBoard[x][y-1] == null) {
+            aLegalMoves[x][y-1] = 1;
+        } else {
+            if (pChessBoard[x][y-1].getColor() != aColor) {
+                aLegalMoves[x][y-1] = 2;
+            }
+        }
+        if (pChessBoard[x+1][y+1] == null) {
+            aLegalMoves[x+1][y+1] = 1;
+        } else {
+            if (pChessBoard[x+1][y+1].getColor() != aColor) {
+                aLegalMoves[x+1][y+1] = 2;
+            }
+        }
+        if (pChessBoard[x-1][y+1] == null) {
+            aLegalMoves[x-1][y+1] = 1;
+        } else {
+            if (pChessBoard[x-1][y+1].getColor() != aColor) {
+                aLegalMoves[x-1][y+1] = 2;
+            }
+        }
+        if (pChessBoard[x+1][y-1] == null) {
+            aLegalMoves[x+1][y-1] = 1;
+        } else {
+            if (pChessBoard[x+1][y-1].getColor() != aColor) {
+                aLegalMoves[x+1][y-1] = 2;
+            }
+        }
+        if (pChessBoard[x-1][y-1] == null) {
+            aLegalMoves[x-1][y-1] = 1;
+        } else {
+            if (pChessBoard[x-1][y-1].getColor() != aColor) {
+                aLegalMoves[x-1][y-1] = 2;
+            }
+        }
         generateCastling(pChessBoard);
         removeKingInCheck(pChessBoard);
         aLegalMoves[x][y] = 1;

@@ -2,7 +2,6 @@ package ywhjenglee.chess.Pieces;
 
 public abstract class Piece {
 
-    private final String aName;
     protected final boolean aColor;
     protected int x;
     protected int y;
@@ -18,17 +17,14 @@ public abstract class Piece {
     6 = castleKing
     */
 
-    protected Piece(String pName, boolean pColor, int pX, int pY) {
-        aName = pName;
+    protected Piece(boolean pColor, int pX, int pY) {
         aColor = pColor;
         x = pX;
         y = pY;
         hasMoved = false;
     }
 
-    public String getName() {
-        return String.valueOf(aColor) + aName;
-    }
+    public abstract String getName();
 
     public boolean getColor() {
         return aColor;
@@ -57,18 +53,6 @@ public abstract class Piece {
 
     public int[][] getLegalMoves() {
         return aLegalMoves;
-    }
-
-    protected void removeAllyOccupied(Piece[][] pChessBoard) {
-        for (int j = 2; j < 10; j++) {
-            for (int i = 2; i < 10; i++) {
-                if (pChessBoard[i][j] != null) {
-                    if (pChessBoard[i][j].getColor() == aColor) {
-                        aLegalMoves[i][j] = 0;
-                    }
-                }
-            }
-        }
     }
 
     protected void removeKingInCheck(Piece[][] pChessBoard) {

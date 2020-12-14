@@ -9,12 +9,20 @@ public class Rook extends Piece {
     */
     
     public Rook(boolean pColor, int pX, int pY, boolean pSide) {
-        super("Rook", pColor, pX, pY);
+        super(pColor, pX, pY);
         aSide = pSide;
     }
 
     public boolean getSide() {
         return aSide;
+    }
+
+    public String getName() {
+        if (aColor) {
+            return "♖";
+        } else {
+            return "♜";
+        }
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {

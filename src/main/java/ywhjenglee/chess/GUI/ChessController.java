@@ -1,38 +1,43 @@
 package ywhjenglee.chess.GUI;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.event.EventHandler;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.geometry.Insets;
 
-import javafx.scene.shape.Rectangle;
-
-public class ChessController extends Rectangle {
+public class ChessController extends HBox {
 
     private final int x, y;
-    private BoardGUI aBoardGUI;
+    private ChessGUI aChessGUI;
 
-    public ChessController(BoardGUI pBoardGUI, int pX, int pY) {
+    private BackgroundFill transparent = new BackgroundFill(Color.rgb(128, 128, 128, 0.0), new CornerRadii(0), new Insets(0));
+
+    public ChessController(ChessGUI pChessGUI, int pX, int pY) {
         x = pX;
         y = pY;
-        aBoardGUI = pBoardGUI;
-        setWidth(75);
-        setHeight(75);
-        setFill(Color.TRANSPARENT);
+        aChessGUI = pChessGUI;
+        setBackground(new Background(transparent));
         createHandle();
     }
 
     private void createHandle() {
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent pEvent) {
-                if (aBoardGUI.getChessModel().getSelectedPiece() == null) {
-                    if (aBoardGUI.getChessModel().getPiece(x+2, y+2) != null) {
-                        aBoardGUI.getChessModel().selectPiece(aBoardGUI.getChessModel().getPiece(x+2, y+2));
-                        aBoardGUI.refreshMoves();
+                if (aChessGUI.getChessModel().getSelectedPiece() == null) {
+                    if (aChessGUI.getChessModel().getPiece(x+2, y+2) != null) {
+                        aChessGUI.getChessModel().selectPiece(aChessGUI.getChessModel().getPiece(x+2, y+2));
+                        aChessGUI.getBoardGUI().refreshMoves();
                     }
                 } else {
-                    if (aBoardGUI.getChessModel().getVisibleSelectedLegalMoves()[x][y] > 0) {
-                        aBoardGUI.getChessModel().movePiece(x+2, y+2);
-                        aBoardGUI.refreshView();
+                    if (aChessGUI.getChessModel().getVisibleSelectedLegalMoves()[x][y] > 0) {
+                        aChessGUI.getChessModel().movePiece(x+2, y+2);
+                        aChessGUI.getBoardGUI().refreshView();
+                        aChessGUI.getProfileGUI(true).refreshTakenPieces();
+                        aChessGUI.getProfileGUI(false).refreshTakenPieces();
                     }
                 }
             }

@@ -23,6 +23,7 @@ public class ChessModel {
     private boolean whiteTurn;
     private int turnCount;
     private Piece selectedPiece;
+    private String aResult;
 
     private King wKing;
     private King bKing;
@@ -40,6 +41,7 @@ public class ChessModel {
         whiteTurn = true;
         turnCount = 0;
         selectedPiece = null;
+        aResult = "Game Ongoing";
         setPieces();
     }
 
@@ -265,16 +267,20 @@ public class ChessModel {
 
     private void getResult() {
         if (wCheck) {
-            System.out.println("false Wins");
+            aResult = "Black Wins";
         } else if (bCheck) {
-            System.out.println("true Wins");
+            aResult = "White Wins";
         } else {
-            System.out.println("Stalemate");
+            aResult = "Stalemate";
         }
     }
 
     public int getTurnCount() {
         return turnCount;
+    }
+
+    public boolean getWhiteTurn() {
+        return whiteTurn;
     }
 
     public Piece getPiece(int pX, int pY) {

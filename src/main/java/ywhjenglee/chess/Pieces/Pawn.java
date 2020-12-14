@@ -5,7 +5,7 @@ public class Pawn extends Piece {
     private boolean enPassant;
     
     public Pawn(boolean pColor, int pX, int pY) {
-        super("Pawn", pColor, pX, pY);
+        super(pColor, pX, pY);
         enPassant = false;
     }
 
@@ -15,6 +15,14 @@ public class Pawn extends Piece {
 
     public boolean isEnPassant() {
         return enPassant;
+    }
+
+    public String getName() {
+        if (aColor) {
+            return "♙";
+        } else {
+            return "♟";
+        }
     }
 
     public void generatePossibleMoves(Piece[][] pChessBoard) {

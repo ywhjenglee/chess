@@ -20,6 +20,10 @@ public class ChessGUI extends Application {
 	private static GridPane aGamePane;
 	private static GridPane aMenuPane;
 
+	private BoardGUI aBoardGUI;
+	private ProfileGUI aWhiteProfileGUI;
+	private ProfileGUI aBlackProfileGUI;
+
 	public static void main(String[] pArgs) {
 		launch(pArgs);
 	}
@@ -76,18 +80,39 @@ public class ChessGUI extends Application {
 		aGamePane.getRowConstraints().addAll(profileConstraints, boardConstraints, profileConstraints);
 
 		// Set nodes in aGamePane
-		aGamePane.add(createProfile(), 0, 0);
+		aGamePane.add(createProfile(false), 0, 0);
 		aGamePane.add(createBoard(), 0, 1);
-		aGamePane.add(createProfile(), 0, 2);
+		aGamePane.add(createProfile(true), 0, 2);
 	}
 
 	private StackPane createBoard() {
-		BoardGUI aBoardGUI = new BoardGUI(aChessModel);
+		aBoardGUI = new BoardGUI(this);
 		return aBoardGUI.getView();
 	}
 
-	private HBox createProfile() {
-		ProfileGUI aProfileGUI = new ProfileGUI();
-		return aProfileGUI.getView();
+	private HBox createProfile(boolean pColor) {
+		if (pColor) {
+			aWhiteProfileGUI = new ProfileGUI(this, pColor);
+			return aWhiteProfileGUI.getView();
+		} else {
+			aBlackProfileGUI = new ProfileGUI(this, pColor);
+			return aBlackProfileGUI.getView();
+		}
+	}
+
+	public ChessModel getChessModel() {
+		return aChessModel;
+	}
+
+	public BoardGUI getBoardGUI() {
+		return aBoardGUI;
+	}
+
+	public ProfileGUI getProfileGUI(boolean pColor) {
+		if (pColor) {
+			return aWhiteProfileGUI;
+		} else {
+			return aBlackProfileGUI;
+		}
 	}
 }

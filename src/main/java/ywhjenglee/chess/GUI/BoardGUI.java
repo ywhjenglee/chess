@@ -1,6 +1,5 @@
 package ywhjenglee.chess.GUI;
 
-import ywhjenglee.chess.ChessModel;
 import ywhjenglee.chess.Pieces.Piece;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,10 +16,11 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class BoardGUI {
 
-    private ChessModel aChessModel;
+    private ChessGUI aChessGUI;
     private String[] aTileColors;
     private String[] aWhitePieceImage;
     private String[] aBlackPieceImage;
@@ -28,7 +28,7 @@ public class BoardGUI {
     private static StackPane aChessBoardView;
     private static GridPane aTilesPane;
     private static GridPane aPiecesPane;
-    private static GridPane aMovesPane;
+    private static GridPane aLegalMovesPane;
     private static GridPane aControllerPane;
     private ColumnConstraints aColumnConstraints;
     private RowConstraints aRowConstraints;
@@ -36,9 +36,10 @@ public class BoardGUI {
     private BackgroundFill white = new BackgroundFill(Color.valueOf("#e5e7e8"), new CornerRadii(0), new Insets(0));
     private BackgroundFill black = new BackgroundFill(Color.valueOf("#3352fc"), new CornerRadii(0), new Insets(0));
     
-    public BoardGUI(ChessModel pChessModel) {
+    public BoardGUI(ChessGUI pChessGUI) {
+        aChessGUI = pChessGUI;
+
         // Initialize layout
-        aChessModel = pChessModel;
         aChessBoardView = new StackPane();
         aChessBoardView.setPadding(new Insets(25));
         aChessBoardView.setAlignment(Pos.CENTER);
@@ -56,9 +57,9 @@ public class BoardGUI {
         // Setup Board GUI
         createTilesPane();
         createPiecesPane();
-        createMovesPane();
+        createLegalMovesPane();
         createControllerPane();
-        aChessBoardView.getChildren().addAll(aTilesPane, aPiecesPane, aMovesPane, aControllerPane);
+        aChessBoardView.getChildren().addAll(aTilesPane, aPiecesPane, aLegalMovesPane, aControllerPane);
     }
 
     private void createTilesPane() {
@@ -89,11 +90,11 @@ public class BoardGUI {
         refreshPieces();
     }
 
-    private void createMovesPane() {
-        aMovesPane = new GridPane();
+    private void createLegalMovesPane() {
+        aLegalMovesPane = new GridPane();
         for (int i = 0; i < 8; i++) {
-            aMovesPane.getColumnConstraints().add(aColumnConstraints);
-            aMovesPane.getRowConstraints().add(aRowConstraints);
+            aLegalMovesPane.getColumnConstraints().add(aColumnConstraints);
+            aLegalMovesPane.getRowConstraints().add(aRowConstraints);
         }
         refreshMoves();
     }
@@ -107,31 +108,32 @@ public class BoardGUI {
         }
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                aControllerPane.add(new ChessController(this, i, j), i, 7-j);
+                aControllerPane.add(new ChessController(aChessGUI, i, j), i, 7-j);
             }
         }
     }
 
     private void refreshPieces() {
         aPiecesPane.getChildren().clear();
-        for (Piece piece : aChessModel.getAllPieces()) {
+        for (Piece piece : aChessGUI.getChessModel().getAllPieces()) {
             int i = piece.getX()-2;
             int j = piece.getY()-2;
             Text aPieceText = new Text(piece.getName());
+            aPieceText.setFont(Font.font(40));
             aPiecesPane.add(aPieceText, i, 7-j);
         }
     }
 
     public void refreshMoves() {
-        aMovesPane.getChildren().clear();
-        if (aChessModel.getSelectedPiece() != null) {
-            int[][] legalMoves = aChessModel.getVisibleSelectedLegalMoves();
+        aLegalMovesPane.getChildren().clear();
+        if (aChessGUI.getChessModel().getSelectedPiece() != null) {
+            int[][] legalMoves = aChessGUI.getChessModel().getVisibleSelectedLegalMoves();
             for (int j = 0; j < 8; j++) {
                 for (int i = 0; i < 8; i++) {
                     if(legalMoves[i][j] > 0) {
                         Circle aLegalMove = new Circle(8);
                         aLegalMove.setFill(Color.rgb(128, 128, 128, 0.5));
-                        aMovesPane.add(aLegalMove, i, 7-j);
+                        aLegalMovesPane.add(aLegalMove, i, 7-j);
                     }
                 }
             }
@@ -139,12 +141,8 @@ public class BoardGUI {
     }
 
     public void refreshView() {
-        aMovesPane.getChildren().clear();
+        aLegalMovesPane.getChildren().clear();
         refreshPieces();
-    }
-
-    public ChessModel getChessModel() {
-        return aChessModel;
     }
 
     public StackPane getView() {
