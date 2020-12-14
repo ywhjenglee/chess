@@ -1,5 +1,7 @@
 package ywhjenglee.chess.GUI;
 
+import ywhjenglee.chess.Pieces.Pawn;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -38,6 +40,9 @@ public class ChessController extends HBox {
                         aChessGUI.getBoardGUI().refreshView();
                         aChessGUI.getProfileGUI(true).refreshTakenPieces();
                         aChessGUI.getProfileGUI(false).refreshTakenPieces();
+                    }
+                    if (aChessGUI.getChessModel().getPieceToPromote() != null) {
+                        aChessGUI.getBoardGUI().openPromotionPane();
                     }
                     if (aChessGUI.getChessModel().getResult() != "Game Ongoing") {
                         aChessGUI.showGameOver();

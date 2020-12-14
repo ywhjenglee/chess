@@ -30,6 +30,7 @@ public class BoardGUI {
     private static GridPane aPiecesPane;
     private static GridPane aLegalMovesPane;
     private static GridPane aControllerPane;
+    private static GridPane aPromotionPane;
     private ColumnConstraints aColumnConstraints;
     private RowConstraints aRowConstraints;
 
@@ -111,6 +112,30 @@ public class BoardGUI {
                 aControllerPane.add(new ChessController(aChessGUI, i, j), i, 7-j);
             }
         }
+    }
+
+    public void openPromotionPane() {
+        aPromotionPane = new GridPane();
+        for (int i = 0; i < 8; i++) {
+            aPromotionPane.getColumnConstraints().add(aColumnConstraints);
+            aPromotionPane.getRowConstraints().add(aRowConstraints);
+        }
+        int xPos = aChessGUI.getChessModel().getSelectedPiece().getX() - 2;
+        int yPos = aChessGUI.getChessModel().getSelectedPiece().getY() - 2;
+        if (yPos == 7) {
+            for (int i = 0; i < 4; i++) {
+                aPromotionPane.add(new PromotionController(aChessGUI, xPos, yPos-i), xPos, 7-(yPos-i));
+            }
+        } else if (yPos == 0) {
+            for (int i = 0; i < 4; i++) {
+                aPromotionPane.add(new PromotionController(aChessGUI, xPos, yPos+i), xPos, 7-(yPos-i));
+            }
+        }
+        aChessBoardView.getChildren().add(aPromotionPane);
+    }
+
+    public void closePromotionPane() {
+        aChessBoardView.getChildren().remove(aPromotionPane);
     }
 
     private void refreshPieces() {

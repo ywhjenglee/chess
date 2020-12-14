@@ -30,6 +30,7 @@ public class ChessModel {
     private boolean wCheck = false;
     private boolean bCheck = false;
     private Pawn pawnEnPassant;
+    private Piece pieceToPromote;
 
     public ChessModel() {
         aChessBoard = new Piece[12][12];
@@ -39,8 +40,6 @@ public class ChessModel {
         blacksCaptures = new ArrayList<>();
 
         whiteTurn = true;
-        turnCount = 0;
-        selectedPiece = null;
         aResult = "Game Ongoing";
         setPieces();
     }
@@ -126,6 +125,9 @@ public class ChessModel {
     }
 
     public void movePiece(int pX, int pY) {
+        if (!whiteTurn) {
+            turnCount++;
+        }
         if (selectedPiece != null) {
             int[][] legalMoves = selectedPiece.getLegalMoves();
             if (legalMoves[pX][pY] > 0) {
@@ -197,9 +199,6 @@ public class ChessModel {
                         wCheck = false;
                         bCheck = false;
                         whiteTurn = !whiteTurn;
-                        if (!whiteTurn) {
-                            turnCount++;
-                        }
                         return;
                     }
                 }
@@ -207,13 +206,20 @@ public class ChessModel {
                 aChessBoard[pX][pY] = selectedPiece;
                 selectedPiece.setPosition(pX, pY);
                 selectedPiece.setHasMoved();
+
+                // Check promotion
+                if (selectedPiece.getClass() == Pawn.class) {
+                    if (whiteTurn && selectedPiece.getY() == 9 ||
+                    !whiteTurn && selectedPiece.getY() == 2) {
+                        pieceToPromote = selectedPiece;
+                        return;
+                    }
+                }
+
                 selectedPiece = null;
                 wCheck = false;
                 bCheck = false;
                 whiteTurn = !whiteTurn;
-                if (!whiteTurn) {
-                    turnCount++;
-                }
                 scanCheck();
                 if (scanGameOver()) {
                     findResult();
@@ -273,6 +279,32 @@ public class ChessModel {
         } else {
             aResult = "Stalemate";
         }
+    }
+
+    public void setPiecePromoteTo(Piece pPiece) {
+        aChessBoard[pieceToPromote.getX()][pieceToPromote.getY()] = pPiece;
+        pPiece.setPosition(pieceToPromote.getX(), pieceToPromote.getY());
+        pPiece.setHasMoved();
+        if (pieceToPromote.getColor()) {
+            whitesPieces.remove(pieceToPromote);
+            whitesPieces.add(pPiece);
+        } else {
+            blacksPieces.remove(pieceToPromote);
+            blacksPieces.add(pPiece);
+        }
+        selectedPiece = null;
+        pieceToPromote = null;
+        wCheck = false;
+        bCheck = false;
+        whiteTurn = !whiteTurn;
+        scanCheck();
+        if (scanGameOver()) {
+            findResult();
+        }
+    }
+
+    public Piece getPieceToPromote() {
+        return pieceToPromote;
     }
 
     public String getResult() {

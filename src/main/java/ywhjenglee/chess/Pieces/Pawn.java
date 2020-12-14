@@ -75,7 +75,6 @@ public class Pawn extends Piece {
             } else if (pChessBoard[x-1][y] != null && pChessBoard[x-1][y].getColor() &&
             pChessBoard[x-1][y].getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) pChessBoard[x-1][y];
-                System.out.println(pawn.getName());
                 if (pawn.isEnPassant()) {
                     aLegalMoves[x-1][y-1] = 4;
                 }
