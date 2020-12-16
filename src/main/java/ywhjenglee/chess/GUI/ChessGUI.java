@@ -155,6 +155,7 @@ public class ChessGUI extends Application {
 
 		setupGamePane();
 
+		aMainPane.getChildren().clear();
 		aMainPane.add(aGamePane, 0, 0);
 		aMainPane.add(aMenuPane, 1, 0);
 	}

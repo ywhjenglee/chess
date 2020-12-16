@@ -94,6 +94,9 @@ public class PromotionController extends HBox {
                 }
                 aChessGUI.getBoardGUI().closePromotionPane();
                 aChessGUI.getBoardGUI().refreshView();
+                if (aChessGUI.getChessModel().getResult() != "Game Ongoing") {
+                    aChessGUI.showGameOver();
+                }
             }
         });
     }

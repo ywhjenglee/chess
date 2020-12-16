@@ -209,8 +209,8 @@ public class ChessModel {
 
                 // Check promotion
                 if (selectedPiece.getClass() == Pawn.class) {
-                    if (whiteTurn && selectedPiece.getY() == 9 ||
-                    !whiteTurn && selectedPiece.getY() == 2) {
+                    if ((whiteTurn && selectedPiece.getY() == 9) ||
+                    (!whiteTurn && selectedPiece.getY() == 2)) {
                         pieceToPromote = selectedPiece;
                         return;
                     }
