@@ -21,9 +21,6 @@ import javafx.scene.text.Font;
 public class BoardGUI {
 
     private ChessGUI aChessGUI;
-    private String[] aTileColors;
-    private String[] aWhitePieceImage;
-    private String[] aBlackPieceImage;
 
     private static StackPane aChessBoardView;
     private static GridPane aTilesPane;

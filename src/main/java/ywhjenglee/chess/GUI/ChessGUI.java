@@ -25,7 +25,7 @@ public class ChessGUI extends Application {
 
 	private static GridPane aMainPane;
 	private static GridPane aGamePane;
-	private static GridPane aMenuPane;
+	private static VBox aMenuPane;
 
 	private BoardGUI aBoardGUI;
 	private ProfileGUI aWhiteProfileGUI;
@@ -43,7 +43,7 @@ public class ChessGUI extends Application {
 		// Initialize layouts
 		aMainPane = new GridPane();
 		aGamePane = new GridPane();
-		aMenuPane = new GridPane();
+		aMenuPane = new MenuGUI(this);
 
 		// Setup GUI
 		setupMainPane();
@@ -131,6 +131,7 @@ public class ChessGUI extends Application {
 		gameOverWindow.initModality(Modality.APPLICATION_MODAL);
 		gameOverWindow.setTitle("Game Over");
 		VBox gameOverPane = new VBox();
+		gameOverPane.setSpacing(20);
 		gameOverPane.setAlignment(Pos.CENTER);
 		Text gameOverText = new Text(aChessModel.getResult());
 		Button newGameButton = new Button("New Game");
@@ -143,6 +144,9 @@ public class ChessGUI extends Application {
 		});
 		gameOverPane.getChildren().addAll(gameOverText, newGameButton);
 		Scene aScene = new Scene(gameOverPane);
+		gameOverWindow.setMinWidth(300);
+		gameOverWindow.setMinHeight(200);
+		gameOverWindow.setResizable(false);
 		gameOverWindow.setScene(aScene);
 		gameOverWindow.showAndWait();
 	}
@@ -151,7 +155,7 @@ public class ChessGUI extends Application {
 		aChessModel = new ChessModel();
 
 		aGamePane = new GridPane();
-		aMenuPane = new GridPane();
+		aMenuPane = new MenuGUI(this);
 
 		setupGamePane();
 

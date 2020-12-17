@@ -112,7 +112,7 @@ public class King extends Piece {
                                     checkUnAttacked[x+m][2] = true;
                                 }
                             } else {
-                                for (int m = 1; x-m > 4; m++) {
+                                for (int m = 1; x-m >= 4; m++) {
                                     if (pChessBoard[x-m][2] != null && pChessBoard[x-m][2] != rook) {
                                         break CastlingLoop;
                                     }
@@ -179,7 +179,7 @@ public class King extends Piece {
                                     checkUnAttacked[x+m][9] = true;
                                 }
                             } else {
-                                for (int m = 1; x-m > 4; m++) {
+                                for (int m = 1; x-m >= 4; m++) {
                                     if (pChessBoard[x-m][9] != null && pChessBoard[x-m][9] != rook) {
                                         break CastlingLoop;
                                     }

@@ -5,7 +5,7 @@ import ywhjenglee.chess.Pieces.Rook;
 import ywhjenglee.chess.Pieces.Bishop;
 import ywhjenglee.chess.Pieces.Knight;
 
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -17,13 +17,13 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
-public class PromotionController extends HBox {
+public class PromotionController extends VBox {
 
     private final int x, y;
     private ChessGUI aChessGUI;
     private Text aPieceText;
 
-    private BackgroundFill transparent = new BackgroundFill(Color.rgb(128, 128, 128, 1.0), new CornerRadii(0), new Insets(0));
+    private BackgroundFill gray = new BackgroundFill(Color.rgb(128, 128, 128, 1.0), new CornerRadii(0), new Insets(0));
 
     public PromotionController(ChessGUI pChessGUI, int pX, int pY) {
         x = pX;
@@ -57,7 +57,7 @@ public class PromotionController extends HBox {
             aPieceText.setText("♕");
             break;
         }
-        setBackground(new Background(transparent));
+        setBackground(new Background(gray));
         setAlignment(Pos.CENTER);
         createHandle();
         getChildren().add(aPieceText);
