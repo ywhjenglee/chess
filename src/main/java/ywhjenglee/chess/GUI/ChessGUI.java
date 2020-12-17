@@ -3,6 +3,8 @@ package ywhjenglee.chess.GUI;
 import ywhjenglee.chess.ChessModel;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -14,6 +16,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,6 +25,7 @@ import javafx.event.ActionEvent;
 public class ChessGUI extends Application {
 
 	private ChessModel aChessModel;
+	private final String[] gameModes = {"Standard", "Fischer Random"};
 
 	private static GridPane aMainPane;
 	private static GridPane aGamePane;
@@ -38,7 +42,7 @@ public class ChessGUI extends Application {
 	@Override
 	public void start(Stage pStage){
 		// Create model
-		aChessModel = new ChessModel();
+		aChessModel = new ChessModel("Standard");
 
 		// Initialize layouts
 		aMainPane = new GridPane();
@@ -138,7 +142,7 @@ public class ChessGUI extends Application {
 		newGameButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent pEvent) {
-				createNewGame();
+				showNewGame();
 				gameOverWindow.close();
 			}
 		});
@@ -151,8 +155,34 @@ public class ChessGUI extends Application {
 		gameOverWindow.showAndWait();
 	}
 
-	public void createNewGame() {
-		aChessModel = new ChessModel();
+	public void showNewGame() {
+		Stage newGameWindow = new Stage();
+		newGameWindow.initModality(Modality.APPLICATION_MODAL);
+		newGameWindow.setTitle("New Game");
+		VBox newGamePane = new VBox();
+		newGamePane.setSpacing(20);
+		newGamePane.setAlignment(Pos.CENTER);
+		ComboBox<String> gameModeComboBox = new ComboBox<>(FXCollections.observableArrayList(gameModes));
+		gameModeComboBox.getSelectionModel().selectFirst();
+		Button playButton = new Button("New Game");
+		playButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent pEvent) {
+				createNewGame(gameModeComboBox.getValue());
+				newGameWindow.close();
+			}
+		});
+		newGamePane.getChildren().addAll(gameModeComboBox, playButton);
+		Scene aScene = new Scene(newGamePane);
+		newGameWindow.setMinWidth(300);
+		newGameWindow.setMinHeight(200);
+		newGameWindow.setResizable(false);
+		newGameWindow.setScene(aScene);
+		newGameWindow.showAndWait();
+	}
+
+	private void createNewGame(String pGameMode) {
+		aChessModel = new ChessModel(pGameMode);
 
 		aGamePane = new GridPane();
 		aMenuPane = new MenuGUI(this);

@@ -121,11 +121,11 @@ public class BoardGUI {
         int yPos = aChessGUI.getChessModel().getSelectedPiece().getY() - 2;
         if (yPos == 7) {
             for (int i = 0; i < 4; i++) {
-                aPromotionPane.add(new PromotionController(aChessGUI, xPos, yPos-i), xPos, 7-(yPos-i));
+                aPromotionPane.add(new PromotionController(aChessGUI, yPos-i), xPos, 7-(yPos-i));
             }
         } else if (yPos == 0) {
             for (int i = 0; i < 4; i++) {
-                aPromotionPane.add(new PromotionController(aChessGUI, xPos, yPos+i), xPos, 7-(yPos-i));
+                aPromotionPane.add(new PromotionController(aChessGUI, yPos+i), xPos, 7-(yPos-i));
             }
         }
         aChessBoardView.getChildren().add(aPromotionPane);

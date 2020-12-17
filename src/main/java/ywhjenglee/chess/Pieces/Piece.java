@@ -25,11 +25,11 @@ public abstract class Piece {
         hasMoved = false;
     }
 
-    public abstract String getName();
-
     public boolean getColor() {
         return aColor;
     }
+
+    public abstract String getName();
 
     public void setHasMoved() {
         hasMoved = true;

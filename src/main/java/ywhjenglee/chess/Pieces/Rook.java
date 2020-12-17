@@ -3,11 +3,11 @@ package ywhjenglee.chess.Pieces;
 public class Rook extends Piece {
 
     private boolean aSide;
+
     /*
     true = queenSide/left
     false = kingSide/right
     */
-    
     public Rook(boolean pColor, int pX, int pY, boolean pSide) {
         super(pColor, pX, pY);
         aSide = pSide;

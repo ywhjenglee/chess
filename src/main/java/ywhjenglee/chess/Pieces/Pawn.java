@@ -13,7 +13,7 @@ public class Pawn extends Piece {
         enPassant = pValue;
     }
 
-    public boolean isEnPassant() {
+    public boolean getEnPassant() {
         return enPassant;
     }
 
@@ -43,14 +43,14 @@ public class Pawn extends Piece {
             if (pChessBoard[x+1][y] != null && !pChessBoard[x+1][y].getColor() &&
             pChessBoard[x+1][y].getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) pChessBoard[x+1][y];
-                if (pawn.isEnPassant()) {
+                if (pawn.getEnPassant()) {
                     aLegalMoves[x+1][y+1] = 4;
                 }
             }
             if (pChessBoard[x-1][y] != null && !pChessBoard[x-1][y].getColor() &&
             pChessBoard[x-1][y].getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) pChessBoard[x-1][y];
-                if (pawn.isEnPassant()) {
+                if (pawn.getEnPassant()) {
                     aLegalMoves[x-1][y+1] = 4;
                 }
             }
@@ -70,14 +70,14 @@ public class Pawn extends Piece {
             if (pChessBoard[x+1][y] != null && pChessBoard[x+1][y].getColor() &&
             pChessBoard[x+1][y].getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) pChessBoard[x+1][y];
-                if (pawn.isEnPassant()) {
+                if (pawn.getEnPassant()) {
                     aLegalMoves[x+1][y-1] = 4;
                 }
             }
             if (pChessBoard[x-1][y] != null && pChessBoard[x-1][y].getColor() &&
             pChessBoard[x-1][y].getClass() == Pawn.class) {
                 Pawn pawn = (Pawn) pChessBoard[x-1][y];
-                if (pawn.isEnPassant()) {
+                if (pawn.getEnPassant()) {
                     aLegalMoves[x-1][y-1] = 4;
                 }
             }
